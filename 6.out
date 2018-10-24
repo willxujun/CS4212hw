@@ -1,0 +1,12 @@
+Warning: main method has non-Void return type.
+===== CData3 ===== 
+class Test
+
+===== CMtd3 ===== 
+Int %Test_0 [Test this]
+[]
+    Int t0;
+    t0 = 0;
+    return t0;
+
+

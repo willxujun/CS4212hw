@@ -1,0 +1,192 @@
+Error at line 16, column 44 : not an ascii character <\xff>
+Error at line 16, column 49 : not an ascii character <\999>
+Error: l expression has different type from r
+In method main
+In class Main
+
+Error: Assigning type Bool to t1: Int
+In method main
+In class Main
+
+Error: Constructor of unknown class Compute
+In method main
+In class Main
+
+Error: Variable help has no field chachedValue
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: Unknown class Compute
+In method main
+In class Main
+
+Error: Unknown class Compute
+In method main
+In class Main
+
+Error: Unknown class Compute
+In method main
+In class Main
+
+Error: Method call is ill-formed
+In method main
+In class Main
+
+Error: Unknown variable binding dynamic
+In method main
+In class Main
+
+Error: Unknown class 
+In method main
+In class Main
+
+Error: Unknown variable binding id
+In method main
+In class Main
+
+Error: Class not found Bool
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+          Int i
+          Bool a
+          String b
+          Void d
+        VariableList
+          Int t1
+          Bool t2
+          String t3
+          Void t4
+          Compute help
+        StatementList
+          If
+            BinExp GT
+              (Id t2)
+              (Id t1)
+            StatementList
+              Print
+                (Str (Square of uToÿ ϧ d larger than sum of squares))
+            StatementList
+              Print
+                (Str (Square of d larger than sum of squares))
+          While
+            (Bool true)
+            StatementList
+              Assign t1
+                (Id t2)
+          Assign help
+            New Compute
+          Assign chachedValue
+            (Id help)
+            BinExp Mult
+              (Id t1)
+              (Int 3)
+          Assign id
+            Dispatch
+              (Id atom)
+              ExpressionList
+                (Id exp1)
+            (Id exp2)
+          Assign t1
+            BinExp Plus
+              Dispatch
+                Access addSquares
+                  (Id help)
+                ExpressionList
+                  (Id a)
+                  (Id b)
+              Dispatch
+                Access square
+                  (Id help)
+                ExpressionList
+                  (Id i)
+          Assign t2
+            Dispatch
+              Access square
+                (Id help)
+              ExpressionList
+                (Id d)
+          Dispatch
+            Dispatch
+              (Id staticmtd)
+              ExpressionList
+                (Id arg1)
+            ExpressionList
+              (Int 123)
+          Dispatch
+            Access dispatch
+              (Id dynamic)
+            ExpressionList
+              (Id b)
+          Read id
+          Print
+            Access fieldname1
+              (Id a)
+          Return
+            (Int 1)
+          Return
+  Class Dummy
+    VariableList
+      Compute c
+      Int i
+      Dummy j
+    MethodList
+      Int dummy
+        FormalList
+        VariableList
+          Bool i
+          Bool j
+        StatementList
+          If
+            BinExp Not
+              (Id i)
+              (Id j)
+            StatementList
+              Return
+                (Int 1)
+            StatementList
+              While
+                (Id i)
+                StatementList
+                  Assign i
+                    UExp Not
+                      (Id j)
+              Assign c
+                Dispatch
+                  Access getCompute
+                    This
+                  ExpressionList
+          Return
+            Dispatch
+              Access square
+                Dispatch
+                  Access getCompute
+                    This
+                  ExpressionList
+              ExpressionList
+                UExp Neg
+                  (Int 3)
+          Return
+            (Id i)
+      Compute getCompute
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id c)
+
+Semantics error detected. Refer to msgs and parse tree.

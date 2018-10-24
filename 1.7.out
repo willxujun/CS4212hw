@@ -1,0 +1,79 @@
+Error: Constructor of unknown class Object
+In method main
+In class Main
+
+Error: Unknown variable binding variable
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+        VariableList
+        StatementList
+          Assign variable
+            New Object
+          Assign variable2
+            This
+            New Object
+          Assign variable3
+            This
+            (Str (Hallo))
+          Assign variable4
+            This
+            (Bool true)
+          Assign variable5
+            This
+            BinExp Not
+              (Bool true)
+              (Bool false)
+          Assign variable6
+            This
+            Null
+          Assign variable7
+            This
+            BinExp Plus
+              (Int 1)
+              (Int 2)
+          Assign variable8
+            This
+            BinExp Plus
+              BinExp Plus
+                (Int 1)
+                BinExp Mult
+                  (Int 2)
+                  (Int 3)
+              (Int 4)
+
+Semantics error detected. Refer to msgs and parse tree.

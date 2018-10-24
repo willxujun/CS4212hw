@@ -1,0 +1,22 @@
+Error: Invalid binary operator
+In method main
+In class Main
+
+Error: Unknown variable binding a
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+        VariableList
+        StatementList
+          Assign a
+            BinExp Not
+              (Int 13)
+              (Int 12)
+
+Semantics error detected. Refer to msgs and parse tree.

@@ -1,0 +1,50 @@
+//Source: Pathier vectors.jlite
+class Main {
+  Void main(Int argc, String argv){
+    /*
+     Main function
+     Performs some calculations
+    */
+    String currentChar; // Unused
+    Point p1;
+    Point p2;
+    Int buffer;
+    Vector v;
+
+    v = new Vector();
+    v.p1 = new Point();
+    p2 = new Point();
+    v.getPoint().p1.x = 90;
+    v.p1.y = 89;
+    p2.x = 43 + 78 * 9 - 7;
+    readln(buffer);
+    p2.y = buffer;
+
+
+    println(v.norm() * 7 + 45 * 9);
+
+    return false;
+  }
+}
+
+class Point {
+  Int x;
+  Int y;
+
+  String toString() {
+    return "Point (x = " + this.x + ", y = " + this.y + ")";
+  }
+}
+
+class Vector {
+  Point p1;
+  Point p2;
+
+  Int norm() {
+    Int res;
+    res = (p1.x - p2.x) * (p1.x - p2.x) + (p2.y - p1.y) * (p2.y - p1.y);
+    res = math.function.should_be_float("OK", true, "Yes", 90)
+            .sqrt(res);
+    return res + 67 - 67;
+  }
+}

@@ -1,0 +1,28 @@
+class Main {
+    Void main() {
+        Box b;
+        Int sum;
+
+        b = new Box();
+
+        b.x = 10;
+        b.y = 20;
+        b.z = 30;
+
+        sum = b.func();
+        println(sum);
+    }
+}
+
+class Box {
+    Int x;
+    Int y;
+    Int z;
+    Box b1;
+
+    Int func() {
+        Int sum;
+        sum = x + y + z;
+        return sum;
+    }
+}

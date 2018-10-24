@@ -1,0 +1,57 @@
+Error: Unknown variable binding c
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Unknown variable binding c
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+          Int a
+          Int b
+        VariableList
+        StatementList
+          While
+            BinExp GE
+              (Id a)
+              (Int 0)
+            StatementList
+              While
+                BinExp GE
+                  (Id b)
+                  (Int 0)
+                StatementList
+                  If
+                    BinExp GE
+                      (Id a)
+                      (Id b)
+                    StatementList
+                      If
+                        BinExp GE
+                          (Id b)
+                          (Id c)
+                        StatementList
+                          Return
+                            (Int 0)
+                        StatementList
+                          Return
+                            (Int 1)
+                    StatementList
+                      While
+                        (Id c)
+                        StatementList
+
+Semantics error detected. Refer to msgs and parse tree.

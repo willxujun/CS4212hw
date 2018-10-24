@@ -1,0 +1,244 @@
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Constructor of unknown class Bar
+In method main
+In class Main
+
+Error: Method signature not foundfoo
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Error: Method call is ill-formed
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+        VariableList
+        StatementList
+          Return
+            BinExp Not
+              BinExp Not
+                BinExp LE
+                  (Int 4)
+                  (Int 2)
+                BinExp NE
+                  (Int 9)
+                  (Int 8)
+              (Bool false)
+          Return
+            BinExp And
+              BinExp And
+                Null
+                BinExp LT
+                  (Int 10)
+                  (Int 9)
+              Dispatch
+                (Id foo)
+                ExpressionList
+                  (Str (bar))
+          Return
+            BinExp Plus
+              BinExp Plus
+                (Int 4)
+                (Int 3)
+              (Int 2)
+          Return
+            BinExp Minus
+              BinExp Minus
+                (Int 10)
+                (Int 9)
+              (Int 8)
+          Return
+            BinExp Mult
+              BinExp Mult
+                (Int 10)
+                (Int 3)
+              (Int 99)
+          Return
+            BinExp Div
+              BinExp Div
+                (Int 99)
+                (Int 2)
+              (Int 3)
+          Return
+            BinExp Not
+              BinExp Not
+                (Bool true)
+                BinExp And
+                  (Bool false)
+                  (Bool true)
+              (Bool false)
+          Return
+            BinExp Not
+              BinExp And
+                (Bool true)
+                (Bool false)
+              BinExp And
+                (Bool true)
+                (Bool false)
+          Return
+            UExp Not
+              New Bar
+          Return
+            UExp Not
+              Dispatch
+                (Id foo)
+                ExpressionList
+                  (Str (bar))
+          Return
+            BinExp Plus
+              (BinExp Mult)
+                BinExp Mult
+                  (Int 4)
+                  (Int 3)
+              (BinExp Div)
+                BinExp Div
+                  (Int 9)
+                  (Int 2)
+          If
+            BinExp Not
+              BinExp Not
+                BinExp And
+                  BinExp GE
+                    (Int 4)
+                    (Int 2)
+                  BinExp LT
+                    (Int 3)
+                    New Bar
+                BinExp And
+                  BinExp And
+                    Dispatch
+                      (Id foo)
+                      ExpressionList
+                        (Str (bar))
+                    BinExp EQ
+                      BinExp Div
+                        (Int 3)
+                        (Int 2)
+                      (Int 6)
+                  Null
+              (Bool false)
+            StatementList
+              Return
+                BinExp Plus
+                  BinExp Plus
+                    BinExp Minus
+                      BinExp Minus
+                        BinExp Plus
+                          (Int 1)
+                          (Int 2)
+                        (Int 3)
+                      (Int 8)
+                    BinExp Div
+                      BinExp Mult
+                        BinExp Div
+                          BinExp Mult
+                            (Int 4)
+                            (Int 8)
+                          (Int 3)
+                        (Int 2)
+                      (Int 9)
+                  (Int 2)
+            StatementList
+              Return
+                UExp Not
+                  (BinExp And)
+                    BinExp And
+                      (Bool false)
+                      UExp Not
+                        (Bool true)
+          Return
+            BinExp Not
+              BinExp LT
+                (Int 3)
+                BinExp Plus
+                  (Int 2)
+                  (Int 8)
+              BinExp GE
+                (Int 4)
+                BinExp Mult
+                  (Int 6)
+                  (Int 3)
+          Dispatch
+            Access g
+              Access f
+                Access e
+                  Access d
+                    Access c
+                      Access b
+                        (Id a)
+            ExpressionList
+              Access k
+                Access j
+                  Access i
+                    (Id h)
+          Assign d
+            Access c
+              Access b
+                (Id a)
+            (Id e)
+
+Semantics error detected. Refer to msgs and parse tree.

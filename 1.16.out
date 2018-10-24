@@ -1,0 +1,129 @@
+Error: l expression does not have bool or int type
+In method main
+In class Main
+
+Error: Accessing field of a non-object
+In method main
+In class Main
+
+Error: l expression does not have bool or int type
+In method main
+In class Main
+
+Error: Error in unary expression
+In method main
+In class Main
+
+Error: Error in unary expression
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+        VariableList
+          Int k
+          Bool bool1
+          Foo foo
+        StatementList
+          Assign foo
+            New Foo
+          While
+            BinExp And
+              BinExp And
+                BinExp NE
+                  (Id foo)
+                  Null
+                (Id bool1)
+              Dispatch
+                Access method1
+                  (Id foo)
+                ExpressionList
+            StatementList
+              Assign k
+                (Int 1)
+          Assign k
+            BinExp Plus
+              BinExp Div
+                (Int 2)
+                (Int 1)
+              BinExp Mult
+                (Int 4)
+                (Int 5)
+          Assign bool1
+            BinExp Not
+              (Bool true)
+              Dispatch
+                Access method1
+                  (Id foo)
+                ExpressionList
+          Assign bool
+            New Foo
+            BinExp Not
+              BinExp Not
+                BinExp Not
+                  BinExp GE
+                    (Int 4)
+                    (Int 2)
+                  (Bool true)
+                BinExp LT
+                  (Int 4)
+                  (Int 5)
+              (Bool false)
+          If
+            BinExp Not
+              BinExp And
+                BinExp NE
+                  (Id foo)
+                  Null
+                Dispatch
+                  Access method1
+                    (Id foo)
+                  ExpressionList
+              UExp Not
+                Access bool
+                  (Id foo)
+            StatementList
+              Assign k
+                (Int 0)
+            StatementList
+              Assign k
+                (Int 1)
+          While
+            BinExp Not
+              (Id bool1)
+              BinExp And
+                BinExp GT
+                  (Int 4)
+                  (Int 5)
+                UExp Not
+                  Dispatch
+                    Access method1
+                      (Id foo)
+                    ExpressionList
+            StatementList
+              Assign k
+                (Int 2)
+  Class Foo
+    VariableList
+      Bool bool
+    MethodList
+      Bool method1
+        FormalList
+        VariableList
+        StatementList
+          Return
+            BinExp GT
+              (Int 1)
+              (Int 2)
+      Void method2
+        FormalList
+        VariableList
+        StatementList
+          Print
+            (Str (Hello!))
+
+Semantics error detected. Refer to msgs and parse tree.

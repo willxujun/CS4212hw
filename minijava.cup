@@ -1,0 +1,259 @@
+/* Minijava Grammar */
+
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.ScannerBuffer;
+import java.io.*;
+
+parser code {:
+  public Parser(Lexer lex, ComplexSymbolFactory sf) {
+    super(lex,sf);
+  }
+  public static void main(String[] args) throws Exception {
+      // initialize the symbol factory
+      ComplexSymbolFactory csf = new ComplexSymbolFactory();
+      // create a buffering scanner wrapper
+      ScannerBuffer lexer = new ScannerBuffer(new Lexer(new BufferedReader(new FileReader(args[0])),csf));
+      // start parsing
+      Parser p = new Parser(lexer,csf);
+      Program e = (Program)p.parse().value;
+      Tree t = new Tree(e);
+      boolean type_check_result;
+
+      IR3 ir3;
+      if(!Program.hasParseError) {
+          type_check_result = e.isOK();
+          if(type_check_result == true) {
+            ir3 = new IR3(e);
+            System.out.println(ir3);
+          } else {
+            System.out.println(t.prettyPrint());
+            System.out.println("Semantics error detected. Refer to msgs and parse tree.");
+          }
+      } else {
+            System.out.println("Parse error, or failed distinct name check. See parse tree for detail.");
+            System.out.println(t.prettyPrint());
+      }
+  }
+:};
+
+// terminals
+terminal Integer INTCONST;
+terminal String STRCONST;
+terminal Boolean BOOLCONST;
+terminal PLUS, MINUS, TIMES, DIV;
+terminal LPAREN, RPAREN, UMINUS;
+terminal CLASS, IF, ELSE, WHILE, READLN, PRINTLN, RETURN, THIS, NEW, NULL;
+terminal SEMICOLON, LBRACES, RBRACES, COMMA, DOT, OR, AND, NOT, LT, GT, LE, GE, NE, EQ, ASSIGN;
+terminal String TYPEID, OBJECTID;
+
+// non-terminals
+non terminal Program program;
+non terminal MyClasses classes;
+non terminal MyClass myclass;
+non terminal Formals formals, formalsplus;
+non terminal Formal formal;
+non terminal Vms varsmethods;
+non terminal Variables vars, varsplus;
+non terminal Variable var;
+non terminal Methods methods, methodsplus;
+non terminal Method method;
+non terminal Statements stmts, stmtsplus;
+non terminal Statement stmt;
+non terminal Expressions exps, expsplus; 
+non terminal Expression exp;
+non terminal Atom atom;
+// non terminal bexp, aexp, sexp, bgrd, rexp, conj, ftr, bop, term;
+
+// precedence
+precedence left OR;
+precedence left AND;
+precedence nonassoc LT, GT, LE, GE, EQ, NE, NOT;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIV;
+precedence left UMINUS;
+
+program     ::= myclass:c classes:cs
+                {:
+                    if(!c.isError()) {
+                        Methods methods = c.ms;
+                        if(methods.ms.size() != 1) {
+                            System.out.println("Warning: main class should have exactly 1 method");
+                        }
+                        if(methods.ms.size() > 0) {
+                            Method fst = methods.ms.get(0);
+                            if(!fst.id.equals("main")) {
+                                System.out.println("Warning: main method has name other than \"main\"");
+                            }
+                            if(!fst.type.equals("Void")) {
+                            System.out.println("Warning: main method has non-Void return type.");
+                            }
+                        }
+                    }
+                    MyClasses classList = cs.append(0,c);
+                    RESULT = new Program(classList);
+                :}
+                ;
+classes     ::= 
+                {: RESULT = new MyClasses(); :}
+                | classes:cs myclass :c
+                {:  
+                    RESULT = cs.append(c); :}
+                ;
+myclass     ::= CLASS TYPEID:name LBRACES varsmethods:vms RBRACES
+                {:    
+                    MyClass cl = new MyClass(name, vms.vs, vms.ms);
+                    switch(ClassDescriptor.insert(cl)) {
+                        case 0:
+                            RESULT = cl;
+                            break;
+                        case 1:
+                            RESULT = new Err("Error: Duplicate class name " + name);
+                            break;
+                        case 2:
+                            RESULT = new Err("Error: Duplicate formal name in method");
+                            break;
+                        case 3:
+                            RESULT = new Err("Error: Duplicate field name in class" + name);
+                            break;
+                        case 4:
+                            RESULT = new Err("Error: Method cannot overload");
+                            break;
+                        default:
+                            RESULT = new Err("Error: unknown");
+                    }
+                :}
+                | error:e RBRACES
+                {: 
+                RESULT = new Err("Error: Syntax error in class defn"); :}
+                ;
+
+formals     ::= {: RESULT = new Formals(); :}
+                | formalsplus:fs    {:RESULT = fs; :}
+                ;
+formalsplus ::= formal:f  {:RESULT = new Formals(f); :}
+                | formalsplus:fs COMMA formal:f {:RESULT = fs.append(f); :}
+                ;
+formal      ::= TYPEID:typeId OBJECTID:objectId
+                {:RESULT = new Formal(typeId, objectId); :}
+                ;
+
+varsmethods ::= {: RESULT = new Vms(); :}
+                | varsplus:vs               
+                {: RESULT = new Vms(vs); :}
+                | methodsplus:ms
+                {: RESULT = new Vms(ms); :}
+                | varsplus:vs methodsplus:ms
+                {: RESULT = new Vms(vs, ms); :}
+                ;
+
+vars        ::= {: RESULT = new Variables(); :}
+                | varsplus:vs
+                {: RESULT = vs; :}
+                ;
+varsplus    ::= var:v           {: RESULT = new Variables(v); :}
+                | varsplus:vs var:v {: RESULT = vs.append(v); :}
+                ;
+var         ::= TYPEID:type OBJECTID:id SEMICOLON
+                {: RESULT = new Variable(type, id); :}
+                ;
+/*
+methods     ::= {: RESULT = new Methods(); :}
+                | methodsplus:ms    {: RESULT = ms; :}
+                ;
+*/
+
+methodsplus ::= method:m
+                {:RESULT = new Methods(m); :}
+                | methodsplus:ms method:m
+                {:RESULT = ms.append(m); :}
+                ;
+method      ::= TYPEID:retType OBJECTID:name LPAREN formals:fs RPAREN LBRACES vars:vs stmtsplus:ss RBRACES
+                {: RESULT = new Method(retType, name, fs, vs, ss); :}
+                ;
+
+stmts       ::= {:RESULT = new Statements(); :} 
+                | stmts:ss stmt:s    {:RESULT = ss.append(s); :}
+                ;
+stmtsplus   ::= stmt:s {:RESULT = new Statements(s); :}
+                | stmtsplus:ss stmt:s {:RESULT = ss.append(s); :}
+                ;
+stmt        ::= IF LPAREN exp:e RPAREN LBRACES stmtsplus:codeTrue RBRACES ELSE LBRACES stmtsplus:codeFalse RBRACES
+                {:RESULT = new IfStmt(e, codeTrue, codeFalse); :}
+                | WHILE LPAREN exp:v RPAREN LBRACES stmts:codeLoop RBRACES
+                {:RESULT = new WhileStmt(v, codeLoop); :}
+                | READLN LPAREN OBJECTID:s RPAREN SEMICOLON
+                {:RESULT = new ReadStmt(s); :}
+                | PRINTLN LPAREN exp:e RPAREN SEMICOLON
+                {:RESULT = new PrintStmt(e); :}
+                | OBJECTID:id ASSIGN exp:e SEMICOLON
+                {:RESULT = new AssignStmt(id, e); :}
+                | atom:a DOT OBJECTID:id ASSIGN exp:e SEMICOLON
+                {:RESULT = new AccessStmt(a, id, e); :}
+                | atom:a LPAREN exps:es RPAREN SEMICOLON
+                {:RESULT = new DispatchStmt(a, es); :}
+                | RETURN exp:e SEMICOLON
+                {:RESULT = new ReturnStmt(e); :}
+                | RETURN SEMICOLON
+                {:RESULT = new ReturnStmt(); :}
+                ;
+
+exps        ::= {:RESULT = new Expressions();:}
+                | expsplus:es
+                {:RESULT = es;:}
+                ;
+expsplus    ::= exp:e {:RESULT = new Expressions(e); :}
+                | expsplus:es COMMA exp:e {:RESULT = es.append(e);:}
+                ;
+exp         ::= exp:l OR exp:r {:RESULT = new BinExp(new Not(), l, r); :}
+                | exp:l AND exp:r
+                {:RESULT = new BinExp(new And(), l, r); :}
+                | NOT exp:e
+                {:RESULT = new UExp(new Not(), e); :}
+                | exp:l LT exp:r
+                {:RESULT = new BinExp(new LT(), l, r); :}
+                | exp:l GT exp:r
+                {:RESULT = new BinExp(new GT(), l, r); :}
+                | exp:l LE exp:r
+                {:RESULT = new BinExp(new LE(), l, r); :}
+                | exp:l GE exp:r
+                {:RESULT = new BinExp(new GE(), l, r); :}
+                | exp:l EQ exp:r
+                {:RESULT = new BinExp(new EQ(), l, r); :}
+                | exp:l NE exp:r
+                {:RESULT = new BinExp(new NE(), l, r); :}
+                | exp:l PLUS exp:r
+                {:RESULT = new BinExp(new Plus(), l, r); :}
+                | exp:l MINUS exp:r
+                {:RESULT = new BinExp(new Minus(), l, r); :}
+                | exp:l TIMES exp:r
+                {:RESULT = new BinExp(new Mult(), l, r); :}
+                | exp:l DIV exp:r
+                {:RESULT = new BinExp(new Div(), l, r); :}
+                | MINUS exp:e
+                {:RESULT = new UExp(new Neg(), e); :}
+                %prec UMINUS
+                | BOOLCONST:b 
+                {:RESULT = new Bool(b); :}
+                | INTCONST:n 
+                {:RESULT = new Int(n); :}
+                | STRCONST:s 
+                {:RESULT = new Str(s); :}
+                | atom:a
+                {:RESULT = a; :}
+                ;
+
+atom        ::= NULL 
+                {:RESULT = new Null(); :}
+                | THIS 
+                {:RESULT = new This(); :}
+                | LPAREN exp:e RPAREN 
+                {:RESULT = new ExpParen(e); :}
+                | OBJECTID:id 
+                {:RESULT = new Id(id); :}
+                | NEW TYPEID:id LPAREN RPAREN 
+                {:RESULT = new New(id); :}
+                | atom:a DOT OBJECTID:id
+                {:RESULT = new Access(a, id); :}
+                | atom:a LPAREN exps:es RPAREN
+                {:RESULT = new Dispatch(a, es); :}
+                ;

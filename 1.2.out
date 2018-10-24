@@ -1,0 +1,79 @@
+Error: Unknown variable binding t2
+In method main
+In class Main
+
+Error: Unknown variable binding t1
+In method main
+In class Main
+
+Error: Return statement does not have appropriate type
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+          Int i
+          Int a
+          Int b
+          Int d
+        VariableList
+        StatementList
+          While
+            (Bool true)
+            StatementList
+              Assign b
+                (Int 340)
+              Assign t1
+                (Id t2)
+          While
+            (Bool true)
+            StatementList
+          Return
+            (Id t1)
+          Return
+  Class Empty
+    VariableList
+      Nihilism n
+    MethodList
+      Int convolutedelse
+        FormalList
+        VariableList
+        StatementList
+          If
+            BinExp GT
+              (Int 1)
+              BinExp Mult
+                (Int 2)
+                (Int 3)
+            StatementList
+              Return
+                (Id n)
+            StatementList
+              If
+                BinExp EQ
+                  (Int 2)
+                  (Int 3)
+                StatementList
+                  Print
+                    (Str (Oh gargoyles))
+                StatementList
+                  Return
+                    (Str (Gargoyles))
+  Class Dummy
+    VariableList
+      Dummy j
+    MethodList
+      Int dummy
+        FormalList
+        VariableList
+          Bool i
+          Bool j
+        StatementList
+          Return
+            (Id i)
+
+Semantics error detected. Refer to msgs and parse tree.

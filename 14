@@ -1,0 +1,36 @@
+//Source Xu Jun
+class MainC {
+    Void main() {
+        Functional fo;
+        Int i;
+        Int j;
+
+        readln(i);
+        if(i>0) {
+            fo = new Functional();
+            j = fo.f(i);
+            println(j);
+        }
+        else {
+            println("Error");
+        }
+        return;
+    }
+}
+
+class Functional {
+    Int a;
+    Int f (Int b) {
+        return 3;
+    }
+    Bool g(Int input) {
+        Int a;
+        Int b;
+        a = input * 5;
+        b = input + 7;
+        return (a>=b);
+    }
+    Bool h() {
+        return g(7);
+    }
+}

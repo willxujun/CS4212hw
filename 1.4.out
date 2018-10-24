@@ -1,0 +1,95 @@
+Error: Error in unary expression
+In method dummy
+In class Dummy
+
+Error: Method call is ill-formed
+In method dummy
+In class Dummy
+
+Error: If statement has different branch types
+In method dummy
+In class Dummy
+
+Error: Method call is ill-formed
+In method dummy
+In class Dummy
+
+Error: returning Bool, Int expected
+In method dummy
+In class Dummy
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+          Int i
+          Int a
+          Int b
+          Int d
+        VariableList
+          Int t1
+          Int t2
+          Compute help
+        StatementList
+          While
+            (Bool true)
+            StatementList
+              Assign t1
+                BinExp Mult
+                  (Int 1)
+                  (Int 2)
+  Class Dummy
+    VariableList
+      Compute c
+      Int i
+      Dummy j
+    MethodList
+      Int dummy
+        FormalList
+        VariableList
+          Bool i
+          Bool j
+        StatementList
+          If
+            BinExp Not
+              (Id i)
+              (Id j)
+            StatementList
+              Print
+                (Str (Square of d larger than sum of squares))
+              Return
+                (Int 1)
+            StatementList
+              While
+                (Id i)
+                StatementList
+                  Assign i
+                    UExp Not
+                      (Id j)
+              Assign c
+                Dispatch
+                  Access getCompute
+                    This
+                  ExpressionList
+          Return
+            Dispatch
+              Access square
+                Dispatch
+                  Access getCompute
+                    This
+                  ExpressionList
+              ExpressionList
+                UExp Neg
+                  (Int 3)
+          Return
+            (Id i)
+      Compute getCompute
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id c)
+
+Semantics error detected. Refer to msgs and parse tree.

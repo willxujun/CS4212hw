@@ -1,0 +1,51 @@
+===== CData3 ===== 
+class FieldAccessMain
+class FieldAccess
+    Int a
+
+===== CMtd3 ===== 
+Void %FieldAccessMain_0 [FieldAccessMain this]
+[Int a, Int b, Int temp, FieldAccess f]
+    FieldAccess t0;
+    t0 = new FieldAccess();
+    f = t0;
+    Int t2;
+    Int t1;
+    t1 = 5;
+    PARAM f;
+    PARAM t1;
+    t2 = CALL%FieldAccess_0 2;
+    b = t2;
+    Int t4;
+    t4 = f.a;
+    t4 = t3;
+    Int t10;
+    Int t8;
+    Int t7;
+    Int t5;
+    t5 = f.a;
+    Int t6;
+    t6 = b;
+    t7 = t5 + t6;
+    t8 = t7;
+    Int t9;
+    t9 = 2;
+    t10 = t8 * t9;
+    temp = t10;
+    Int t11;
+    t11 = temp;
+    println t11;
+
+Int %FieldAccess_0 [FieldAccess this, Int x]
+[]
+    Int t15;
+    Int t14;
+    Int t12;
+    t12 = 6;
+    Int t13;
+    t13 = x;
+    t14 = t12 + t13;
+    t15 = t14;
+    return t15;
+
+

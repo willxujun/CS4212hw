@@ -1,0 +1,7 @@
+// source: Yijiang fail3.pl
+class Main {
+    // Fails type checking
+    Void main() {
+        a = 13 || 12;
+    }
+}

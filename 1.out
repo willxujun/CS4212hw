@@ -1,0 +1,55 @@
+Parse error, or failed distinct name check. See parse tree for detail.
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+          Int i
+          Int a
+          Int b
+          Int d
+        VariableList
+        StatementList
+          While
+            (Bool true)
+            StatementList
+              Assign b
+                (Int 340)
+              Assign t1
+                (Id t2)
+  Class Dummy
+    VariableList
+      Dummy j
+    MethodList
+      Int dummy
+        FormalList
+        VariableList
+          Bool i
+          Bool j
+        StatementList
+          Return
+            (Id i)
+  Error: Duplicate class name Dummy
+  Error: Duplicate field name in classDupField
+  Error: Duplicate formal name in method
+  Error: Method cannot overload
+  Class OverloadMethod
+    VariableList
+    MethodList
+      Int dummy
+        FormalList
+          Int i
+        VariableList
+        StatementList
+          Return
+            (Id i)
+      Int dummy
+        FormalList
+          Int i
+          Int j
+        VariableList
+        StatementList
+          Return
+            (Id i)
+

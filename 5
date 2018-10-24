@@ -1,0 +1,58 @@
+/*
+Source: Paul Tan Han Kiat
+005.pass.in
+ * Testing associativity / precedence and pretty printing.
+ */
+
+class Main {
+
+    Void main() {
+
+        // || is left associative
+        return 4 <= 2 || 9 != 8 || false;
+
+        // && is left associative
+        return null && 10 < 9 && foo("bar");
+
+        // + is left associative
+        return 4 + 3 + 2;
+
+        // - is left associative
+        return 10 - 9 - 8;
+
+        // * is left associative
+        return 10 * 3 * 99;
+
+        // / is left associative
+        return 99 / 2 / 3;
+
+        // || has greater precedence than &&
+        return true || false && true || false;
+        return true && false || true && false;
+
+        // atoms have the highest precedence
+        return !new Bar();
+        return !foo("bar");
+
+        // Unneeded brackets will be removed by the pretty-printer
+        return (4 * 3) + (9 / 2);
+
+        // atoms have the highest precedence
+        if (4 >= 2 && 3 < new Bar() || foo("bar") && 3 / 2 == 6 && null || false) {
+            // + and - have the same precedence
+            // * and / have the same precedence, and have greater precedence than +/-
+            return 1 + 2 - 3 - 8 + 4 * 8 / 3 * 2 / 9 + 2;
+        } else {
+            return !(false && !true);
+        }
+
+        return 3 < 2 + 8 || 4 >= 6 * 3;
+
+        // Left associative
+        a.b.c.d.e.f.g(h.i.j.k);
+
+        // Left associative
+        a.b.c.d = e;
+    }
+
+}

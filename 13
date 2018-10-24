@@ -1,0 +1,53 @@
+/*
+Test for Atoms
+Source Wenqi test4
+*/
+
+class Test4 {
+    Void main(A a, Int j) {
+        B b;
+        C c;
+        Int k;
+        Bool z;
+
+        k = b.x().y().t.z;
+        k = c.x() + 333 + j - k;
+        k = b.x() - b.z() * 5 - j / b.y;
+        k = -b.y --b.z().g * 3;
+        
+        k = b.x() > 5 || b.z <= 0;
+        c = new C();
+        this.c.d("asdf", 3 > b.z, true, k, this.b);
+        c = y.k().x.get();
+        c = (((3 + y.k))) / z.y.z;
+    }
+}
+
+class Ship {
+    Int fuel;
+    Int cap;
+    Int load;
+    Array ppl;
+    Int state;
+
+    SS create(Int f, Int c, Int l) {
+        this.fuel = f;
+        this.cap = c;
+        this.load = l;
+        s = 1;
+    }
+
+    Void add(P p) {
+        ppl.z.add(p);
+    }
+
+    Void refuel(Int x) {
+        fuel = fuel + x;
+    }
+
+    Void launch(String code) {
+        readln(code);
+        println("Launched");
+        s = 2;
+    }
+}

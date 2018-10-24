@@ -1,0 +1,49 @@
+===== CData3 ===== 
+class Box
+    Int x
+    Box b1
+    Int z
+    Int y
+class Main
+
+===== CMtd3 ===== 
+Void %Main_0 [Main this]
+[Box b, Int sum]
+    Box t0;
+    t0 = new Box();
+    b = t0;
+    Int t2;
+    t2 = b.x;
+    t2 = t1;
+    Int t4;
+    t4 = b.y;
+    t4 = t3;
+    Int t6;
+    t6 = b.z;
+    t6 = t5;
+    Int t7;
+    PARAM b;
+    t7 = CALL%Box_0 1;
+    sum = t7;
+    Int t8;
+    t8 = sum;
+    println t8;
+
+Int %Box_0 [Box this]
+[Int sum]
+    Int t13;
+    Int t11;
+    Int t9;
+    t9 = x;
+    Int t10;
+    t10 = y;
+    t11 = t9 + t10;
+    Int t12;
+    t12 = z;
+    t13 = t11 + t12;
+    sum = t13;
+    Int t14;
+    t14 = sum;
+    return t14;
+
+

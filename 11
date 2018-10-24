@@ -1,0 +1,10 @@
+// source: Thenaesh sample.3.pl
+class IOStream {
+  Void main() {
+    if (n > 4) {
+    println("Hello World!");
+    } else {
+    readln(someVar);
+    }
+  }
+}
