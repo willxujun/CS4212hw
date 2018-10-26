@@ -1,8 +1,17 @@
-Error: Accessing field of a non-object
+Unknwon Class Vector or unknown function getPoint
+Error: Call to unknown function getPoint
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Error: Calling a non-function type
+In method main
+In class Main
+
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: field assign: LHS of l value does not type check for field x
 In method main
 In class Main
 

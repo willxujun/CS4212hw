@@ -60,15 +60,19 @@ class MethodData extends Node {
     String methodId;
     String retType;
     ArrayList<Formal> fmlList;
-    ArrayList<Variable> localVarList;
+    ArrayList<Decl3> localVarList;
     ArrayList<Instruction> code;
 
-    public MethodData(String classId, String methodId, String retType, ArrayList<Formal> fmlList, ArrayList<Variable> localVarList, ArrayList<Instruction> code) {
+    public MethodData(String classId, String methodId, String retType, ArrayList<Formal> fmlList, ArrayList<Variable> localVarList, ArrayList<Instruction> code, ArrayList<Decl3> temps) {
         this.classId = classId;
         this.methodId = ClassDescriptor.lookup_flat_func_name(classId, methodId);
         this.retType = retType;
         this.fmlList = fmlList;
-        this.localVarList = localVarList;
+        this.localVarList = new ArrayList<Decl3>();
+        for(Variable v: localVarList) {
+            this.localVarList.add(new Decl3(v.getType(), v.getId()));
+        }
+        this.localVarList.addAll(temps);
         this.code = code;
     }
 
@@ -93,7 +97,11 @@ abstract class Instruction {
     Arg3 arg1;
 
     public static Var3 getResultFromList(ArrayList<Instruction> ls) {
-        return ls.get(ls.size() - 1).getResult();
+        Instruction last = ls.get(ls.size() - 1);
+        if(last.isObj()) {
+            ls.remove(ls.get(ls.size() - 1));
+        }
+        return last.getResult();
     }
 
     public Var3 getResult() {
@@ -104,13 +112,27 @@ abstract class Instruction {
         return op + " " + arg1+ ";";
     }
 
+    public boolean isObj() {
+        return false;
+    }
 }
 class Obj3 extends Instruction {
-    String name;
+    Var3 name;
+    Const3 constant;
 
     public Obj3(String name) {
-        this.name = name;
+        this.name = new Var3(name);
     }
+    public Obj3(Const3 constant) { this.constant = constant; }
+
+    public boolean isObj() {
+        return true;
+    }
+
+    public Var3 getResult() {
+        return name;
+    }
+
 }
 class Decl3 extends Instruction {
     public Arg3 arg2;
@@ -120,13 +142,23 @@ class Decl3 extends Instruction {
         super.arg1 = type;
         arg2 = id;
     }
+    public Decl3(String type, String id) {
+        super.op = Op3.DECL;
+        super.arg1 = new Var3(type);
+        arg2 = new Var3(id);
+    }
+    public Decl3(Temp t) {
+        super.op = Op3.DECL;
+        super.arg1 = new Var3(t.getType());
+        arg2 = new Var3(t.toString());
+    }
 
     public static void addDecl(ArrayList<Instruction> ls, Temp t) {
         ls.add(0, new Decl3(new Var3(t.getType()), new Var3(t.toString())));
     }
 
     public String toString() {
-        return arg1 + " " + arg2 + ";";
+        return arg1 + " " + arg2;
     }
 }
 class Bexp3 extends Instruction {
@@ -201,10 +233,10 @@ class ECall3 extends Instruction {
     public Arg3 arg2;
     public Var3 result;
 
-    public ECall3(Var3 result, Var3 funcName, Int3 numArgs) {
+    public ECall3(Var3 result, Var3 funcName, VarList3 args) {
         super.op = Op3.CALL;
         super.arg1 = funcName;
-        this.arg2 = numArgs;
+        this.arg2 = args;
         this.result = result;
     }
 
@@ -215,22 +247,22 @@ class ECall3 extends Instruction {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return result + " = " + super.op + arg1 + " " + arg2+ ";";
+        return result + " = " + super.arg1 + " " + arg2+ ";";
     }
 }
 //call, discarding result
 class SCall3 extends Instruction {
     public Arg3 arg2;
 
-    public SCall3(Var3 funcName, Int3 numArgs) {
+    public SCall3(Var3 funcName, VarList3 args) {
         super.op = Op3.CALL;
         super.arg1 = funcName;
-        this.arg2 = numArgs;
+        this.arg2 = args;
     }
 
     @java.lang.Override
     public java.lang.String toString() {
-        return super.toString() + " " + arg2 + ";";
+        return super.arg1 + "" + arg2 + ";";
     }
 }
 class Label3 extends Instruction {
@@ -285,6 +317,11 @@ class Print3 extends Instruction {
 class Ret3 extends Instruction {
     public Ret3() {
         super.op = Op3.RET;
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return super.op + ";";
     }
 }
 class VRet3 extends Instruction {
@@ -373,10 +410,10 @@ class VRet3 extends Op3 {
 */
 
 abstract class Arg3 {
-
+    public boolean isVar3() {return false;}
 }
 class Var3 extends Arg3 {
-    String id;
+    private String id;
 
     public Var3() {
     }
@@ -387,6 +424,31 @@ class Var3 extends Arg3 {
 
     public String toString() {
         return id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isVar3() {return true;}
+}
+class VarList3 extends Arg3 {
+    private ArrayList<Var3> varList;
+
+    public VarList3() {
+        varList = new ArrayList<Var3>();
+    }
+    public VarList3(ArrayList<Var3> varList) {
+        this.varList = varList;
+    }
+    public void add(Var3 var) {
+        varList.add(var);
+    }
+    public void add(int index, Var3 var) {
+        varList.add(index, var);
+    }
+    public String toString() {
+        return varList.toString();
     }
 }
 class New3 extends Arg3 {

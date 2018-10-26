@@ -2,128 +2,98 @@ Error: l expression does not have bool or int type
 In method main
 In class Main
 
-Error: Accessing field of a non-object
-In method main
-In class Main
-
 Error: l expression does not have bool or int type
 In method main
 In class Main
 
-Error: Error in unary expression
-In method main
-In class Main
+===== CData3 ===== 
+class Foo
+    Bool bool
+class Main
 
-Error: Error in unary expression
-In method main
-In class Main
+===== CMtd3 ===== 
+Void %Main_0 [Main this]
+[Int k, Bool bool1, Foo foo, Foo _t0,  _t1, Bool _t2, Bool _t4, Bool _t5, Int _t6, Int _t7, Int _t8, Int _t9, Int _t10, Int _t11, Int _t12, Int _t13, Bool _t14, Bool _t16, Bool _t17, Foo _t18, Int _t19, Int _t20, Bool _t21, Bool _t22, Bool _t23, Int _t24, Int _t25, Bool _t26, Bool _t27, Bool _t28, Bool _t29, Bool _t30,  _t31, Bool _t33, Bool _t34, Bool _t35, Bool _t36, Bool _t37, Int _t38, Int _t39, Int _t40, Int _t41, Bool _t42, Bool _t44, Bool _t45, Bool _t46, Bool _t47, Int _t48]
+    _t0 = new Foo();
+    foo = _t0;
+    L0:
+    _t1 = foo != null;
+    _t2 = _t1 && bool1;
+    _t4 = %Foo_1 [foo];
+    _t5 = _t2 && _t4;
+    if _t5 goto 1;
+    goto 2;
+    L1:
+    _t6 = 1;
+    k = _t6;
+    goto 0;
+    L2:
+    _t7 = 2;
+    _t8 = 1;
+    _t9 = _t7 / _t8;
+    _t10 = 4;
+    _t11 = 5;
+    _t12 = _t10 * _t11;
+    _t13 = _t9 + _t12;
+    k = _t13;
+    _t14 = true;
+    _t16 = %Foo_1 [foo];
+    _t17 = _t14 || _t16;
+    bool1 = _t17;
+    _t18 = new Foo();
+    _t19 = 4;
+    _t20 = 2;
+    _t21 = _t19 >= _t20;
+    _t22 = true;
+    _t23 = _t21 || _t22;
+    _t24 = 4;
+    _t25 = 5;
+    _t26 = _t24 < _t25;
+    _t27 = _t23 || _t26;
+    _t28 = false;
+    _t29 = _t27 || _t28;
+    _t30 = _t18.bool;
+    _t30 = _t29;
+    _t31 = foo != null;
+    _t33 = %Foo_1 [foo];
+    _t34 = _t31 && _t33;
+    _t35 = foo.bool;
+    _t36 = ! _t35;
+    _t37 = _t34 || _t36;
+    if _t37 goto 3;
+    goto 4;
+    L3:
+    _t38 = 0;
+    k = _t38;
+    L4:
+    _t39 = 1;
+    k = _t39;
+    L5:
+    _t40 = 4;
+    _t41 = 5;
+    _t42 = _t40 > _t41;
+    _t44 = %Foo_1 [foo];
+    _t45 = ! _t44;
+    _t46 = _t42 && _t45;
+    _t47 = bool1 || _t46;
+    if _t47 goto 6;
+    goto 7;
+    L6:
+    _t48 = 2;
+    k = _t48;
+    goto 5;
+    L7:
 
-Program
-  Class Main
-    VariableList
-    MethodList
-      Void main
-        FormalList
-        VariableList
-          Int k
-          Bool bool1
-          Foo foo
-        StatementList
-          Assign foo
-            New Foo
-          While
-            BinExp And
-              BinExp And
-                BinExp NE
-                  (Id foo)
-                  Null
-                (Id bool1)
-              Dispatch
-                Access method1
-                  (Id foo)
-                ExpressionList
-            StatementList
-              Assign k
-                (Int 1)
-          Assign k
-            BinExp Plus
-              BinExp Div
-                (Int 2)
-                (Int 1)
-              BinExp Mult
-                (Int 4)
-                (Int 5)
-          Assign bool1
-            BinExp Not
-              (Bool true)
-              Dispatch
-                Access method1
-                  (Id foo)
-                ExpressionList
-          Assign bool
-            New Foo
-            BinExp Not
-              BinExp Not
-                BinExp Not
-                  BinExp GE
-                    (Int 4)
-                    (Int 2)
-                  (Bool true)
-                BinExp LT
-                  (Int 4)
-                  (Int 5)
-              (Bool false)
-          If
-            BinExp Not
-              BinExp And
-                BinExp NE
-                  (Id foo)
-                  Null
-                Dispatch
-                  Access method1
-                    (Id foo)
-                  ExpressionList
-              UExp Not
-                Access bool
-                  (Id foo)
-            StatementList
-              Assign k
-                (Int 0)
-            StatementList
-              Assign k
-                (Int 1)
-          While
-            BinExp Not
-              (Id bool1)
-              BinExp And
-                BinExp GT
-                  (Int 4)
-                  (Int 5)
-                UExp Not
-                  Dispatch
-                    Access method1
-                      (Id foo)
-                    ExpressionList
-            StatementList
-              Assign k
-                (Int 2)
-  Class Foo
-    VariableList
-      Bool bool
-    MethodList
-      Bool method1
-        FormalList
-        VariableList
-        StatementList
-          Return
-            BinExp GT
-              (Int 1)
-              (Int 2)
-      Void method2
-        FormalList
-        VariableList
-        StatementList
-          Print
-            (Str (Hello!))
+Bool %Foo_1 [Foo this]
+[Int _t49, Int _t50, Bool _t51]
+    _t49 = 1;
+    _t50 = 2;
+    _t51 = _t49 > _t50;
+    return _t51;
 
-Semantics error detected. Refer to msgs and parse tree.
+Void %Foo_0 [Foo this]
+[Str _t52]
+    _t52 = "Hello!";
+    println _t52;
+
+

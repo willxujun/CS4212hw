@@ -46,7 +46,11 @@ Error: Constructor of unknown class Bar
 In method main
 In class Main
 
-Error: Method signature not foundfoo
+Error: Unknown function binding foo
+In method main
+In class Main
+
+Error: Calling a non-function type
 In method main
 In class Main
 
@@ -62,11 +66,51 @@ Error: Return statement does not have appropriate type
 In method main
 In class Main
 
-Error: Method call is ill-formed
+Error: Unknown variable binding a
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: Dispatch object does not type check for call to g
+In method main
+In class Main
+
+Error: Calling a non-function type
+In method main
+In class Main
+
+Error: Unknown variable binding a
+In method main
+In class Main
+
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: Access LHS does not type check
+In method main
+In class Main
+
+Error: field assign: LHS of l value does not type check for field d
 In method main
 In class Main
 
@@ -79,8 +123,8 @@ Program
         VariableList
         StatementList
           Return
-            BinExp Not
-              BinExp Not
+            BinExp Or
+              BinExp Or
                 BinExp LE
                   (Int 4)
                   (Int 2)
@@ -124,15 +168,15 @@ Program
                 (Int 2)
               (Int 3)
           Return
-            BinExp Not
-              BinExp Not
+            BinExp Or
+              BinExp Or
                 (Bool true)
                 BinExp And
                   (Bool false)
                   (Bool true)
               (Bool false)
           Return
-            BinExp Not
+            BinExp Or
               BinExp And
                 (Bool true)
                 (Bool false)
@@ -159,8 +203,8 @@ Program
                   (Int 9)
                   (Int 2)
           If
-            BinExp Not
-              BinExp Not
+            BinExp Or
+              BinExp Or
                 BinExp And
                   BinExp GE
                     (Int 4)
@@ -211,7 +255,7 @@ Program
                       UExp Not
                         (Bool true)
           Return
-            BinExp Not
+            BinExp Or
               BinExp LT
                 (Int 3)
                 BinExp Plus

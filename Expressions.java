@@ -2,6 +2,7 @@ import java.util.*;
 
 class Expressions extends Node{
     public ArrayList<Expression> exps;
+    public Type type;
 
     public Expressions() {
         exps = new ArrayList<Expression>();
@@ -46,5 +47,21 @@ class Expressions extends Node{
             i++;
         }
         return 0;
+    }
+
+    public Type typecheck(LocalEnvironment env) {
+        Type exp_type;
+        ArrayList<Type> ids = new ArrayList<Type>();
+        for(Expression e: exps) {
+            exp_type = e.typecheck(env);
+            if(exp_type.isError()) {
+                exp_type = new Error_t("expression list contains type error", env.currMethod, env.currClass);
+                exp_type.printMsg();
+                return exp_type;
+            }
+            ids.add(exp_type);
+        }
+        type = new Tuple_t(ids);
+        return type;
     }
 }

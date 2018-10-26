@@ -1,36 +1,53 @@
-// source: Elain Fang Li
 class Main {
-Void main(Int i, Int a, Int b,Int d){
-
-while(true){
-b = 340 ;
-t1 = t2 ;
-}
-while (true) {}
-return t1;
-return;
-
-}
+    Void main() {
+        A a;
+        Int value;
+        a = new A();
+        value = a.getB().getC().getA().getValue(2,4,3);
+        value = a.getB().c.getD().a.getValue(1,2,3);
+        return;
+    }
 }
 
-class Empty {
-	Nihilism n;
-	Int convolutedelse() {
-	 if (1 > 2 * 3) 
-	 {return n;} else 
-	 {if (2 == 3) {println("Oh gargoyles"); } 
-	 else {return "Gargoyles"; } 
-	 }
-	// then (7 * 9) else (0 / 0); 
-	}
+class A {
+    Int value;
+    B b;
+    
+    B getB() {
+        return b;
+    }
 
+    Int getValue(Int a, Int b, Int c) {
+        this.value = -(a*b-c);
+        return value;
+    }
 }
 
-class Dummy {
-Dummy j;
-Int dummy() {
-Bool i;
-Bool j;
-return i ;
+class B {
+    C c;
+    
+    C getC() {
+        return c;
+    }
 }
+
+class C {
+    A a;
+    D d;
+
+    A getA() {
+        return a;
+    }
+
+    D getD() {
+        return d;
+    }
+}
+
+class D {
+    A a;
+
+    A getA() {
+        return this.a;
+    }
 }

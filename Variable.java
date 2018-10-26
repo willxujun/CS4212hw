@@ -18,4 +18,12 @@ public class Variable extends Node {
     public java.lang.String toString() {
         return type + " " + id;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

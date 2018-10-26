@@ -1,99 +1,115 @@
-Error: Error in unary expression
-In method dummy
-In class Dummy
+===== CData3 ===== 
+class Empty
+    Nihilism n
+class Dummy
+    Int b
+    Int a
+    Compute c
+class Compute
+    Int x
+    Bool chachedValue
+    Dummy dummy
+    Int y
+class Nihilism
+class Main
+class Dummy1
+    Dummy j1
 
-Error: Method call is ill-formed
-In method dummy
-In class Dummy
+===== CMtd3 ===== 
+Void %Main_0 [Main this, Int i, Int k, Int b, Int c2]
+[Int t1, Int t2, Bool t3, String c, Compute help, Dummy dummy, Dummy _t1, Int _t2, Int _t3, Int _t4, Int _t5, Compute _t6, Int _t7, Int _t8, Int _t9, Int _t10, Bool _t11, Bool _t12, Int _t13, Int _t14, Bool _t15, Int _t16, Int _t17, Bool _t18, Int _t19, Bool _t20, Bool _t21, Bool _t22, Bool _t23, Bool _t24, Int _t25, Dummy _t26, Int _t27, Int _t28, Int _t29, Int _t30, Int _t31]
+    _t1 = help.dummy;
+    _t2 = t1 + t2;
+    _t3 = _t2 + k;
+    _t4 = _t3 + b;
+    _t5 = _t1.b;
+    _t5 = _t4;
+    _t6 = new Compute();
+    help = _t6;
+    _t7 = 3;
+    _t8 = t1 * _t7;
+    _t9 = _t8;
+    _t10 = - _t9;
+    _t11 = _t10 > t2;
+    _t12 = help.chachedValue;
+    _t12 = _t11;
+    L0:
+    _t13 = t1 + t2;
+    _t14 = 5;
+    _t15 = _t13 > _t14;
+    if _t15 goto 1;
+    goto 2;
+    L1:
+    _t16 = 340;
+    b = _t16;
+    t1 = t2;
+    goto 0;
+    L2:
+    _t17 = k + b;
+    _t18 = _t17 > t1;
+    _t19 = k - t2;
+    _t20 = _t19 < t1;
+    _t21 = _t20 && t3;
+    _t22 = _t18 || _t21;
+    _t23 = help.chachedValue;
+    _t24 = _t22 || _t23;
+    if _t24 goto 3;
+    goto 4;
+    L3:
+    _t25 = t1 + t2;
+    b = _t25;
+    _t26 = help.dummy;
+    _t27 = 1;
+    _t28 = _t26.a;
+    _t28 = _t27;
+    L4:
+    _t29 = 3;
+    _t30 = 4;
+    _t31 = _t29 * _t30;
+    b = _t31;
+    println t2;
 
-Error: If statement has different branch types
-In method dummy
-In class Dummy
+Int %Compute_0 [Compute this, Int a, Int b]
+[Compute help, Dummy _t32, Int _t34, Int _t35, Int _t36, Int _t37, Int _t38]
+    help = this;
+    _t32 = this.dummy;
+    _t34 = 1;
+    _t35 = 2;
+    _t36 = %Compute_0 [_t0, _t34, _t35];
+    _t37 = _t32.a;
+    _t37 = _t36;
+    _t38 = 1;
+    return _t38;
 
-Error: Method call is ill-formed
-In method dummy
-In class Dummy
+Int %Empty_0 [Empty this]
+[Int _t39, Int _t40, Int _t41, Int _t42, Bool _t43, Int _t44, Int _t45, Int _t46, Bool _t47, Int _t48, Int _t49, Int _t50]
+    _t39 = 1;
+    _t40 = 2;
+    _t41 = 3;
+    _t42 = _t40 * _t41;
+    _t43 = _t39 > _t42;
+    if _t43 goto 7;
+    goto 8;
+    L7:
+    _t44 = 3;
+    return _t44;
+    L8:
+    _t45 = 2;
+    _t46 = 3;
+    _t47 = _t45 == _t46;
+    if _t47 goto 5;
+    goto 6;
+    L5:
+    _t48 = 10000;
+    return _t48;
+    L6:
+    _t49 = 3;
+    return _t49;
+    _t50 = 1;
+    return _t50;
 
-Error: returning Bool, Int expected
-In method dummy
-In class Dummy
+Int %Dummy1_0 [Dummy1 this]
+[Int i, Bool j]
+    return i;
 
-Program
-  Class Main
-    VariableList
-    MethodList
-      Void main
-        FormalList
-          Int i
-          Int a
-          Int b
-          Int d
-        VariableList
-          Int t1
-          Int t2
-          Compute help
-          String c
-        StatementList
-          Assign c
-            (Str (GJMI if 
-	(else)))
-          While
-            (Bool true)
-            StatementList
-              Assign t1
-                BinExp Mult
-                  (Int 1)
-                  (Int 2)
-              Assign t1
-                (Id t2)
-  Class Dummy
-    VariableList
-      Compute c
-      Int i
-      Dummy j
-    MethodList
-      Int dummy
-        FormalList
-        VariableList
-          Bool i
-          Bool j
-        StatementList
-          If
-            BinExp Not
-              (Id i)
-              (Id j)
-            StatementList
-              Return
-                (Int 1)
-            StatementList
-              While
-                (Id i)
-                StatementList
-                  Assign i
-                    UExp Not
-                      (Id j)
-              Assign c
-                Dispatch
-                  Access getCompute
-                    This
-                  ExpressionList
-          Return
-            Dispatch
-              Access square
-                Dispatch
-                  Access getCompute
-                    This
-                  ExpressionList
-              ExpressionList
-                UExp Neg
-                  (Int 3)
-          Return
-            (Id i)
-      Compute getCompute
-        FormalList
-        VariableList
-        StatementList
-          Return
-            (Id c)
 
-Semantics error detected. Refer to msgs and parse tree.

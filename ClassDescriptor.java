@@ -8,18 +8,52 @@ public class ClassDescriptor {
         return cdesc.get(cName);
     }
 
-    public static Type lookup_field_type(String cName, String vName) {
-        Tuple<VarSig, MSig> tup = cdesc.get(cName);
-        if(tup == null)
-            return null;
-        String ret = tup.x.rec.get(vName);
-        if(ret == null)
-            return null;
-        return new Type(ret);
+    public static Type lookup_field_name(String cName, String vName) {
+        Type vtype = lookup_var(cName, vName);
+        Type ftype = lookup_func(cName, vName);
+        Type ret = new Null_t();
+        if(vtype.isError() && ftype.isError()) {
+            ret = new Error_t("Class " + cName + " has unknown binding " + vName);
+            ret.printMsg();
+        }
+        if(!vtype.isError() && ftype.isError())
+            ret = vtype;
+        if(vtype.isError() && !ftype.isError())
+            ret = ftype;
+        if(!vtype.isError() && !ftype.isError())
+            ret = new Tuple_t(vtype, ftype);
+        return ret;
     }
-
+    public static Type lookup_var(String cName, String vName) {
+        Tuple<VarSig, MSig> tup = cdesc.get(cName);
+        Type ret;
+        if(tup == null)
+            return new Error_t("Class " + cName + " is unknown");
+        String type = tup.x.rec.get(vName);
+        if(type == null) {
+            ret = new Error_t("Class " + cName + " has unknown variable " + vName);
+            ret.printMsg();
+            return ret;
+        }
+        ret = new Type(type);
+        return ret;
+    }
+    public static Type lookup_func(String cName, String vName) {
+        Tuple<HashMap<String, String>, String> maybe_func = lookup_method_sig(cName, vName);
+        Type func_type;
+        if (maybe_func != null) {
+            func_type = new Function_t(maybe_func.y, new ArrayList<String>(maybe_func.x.values()));
+            return func_type;
+        }
+        func_type = new Error_t("Unknwon Class " +cName + " or unknown function " + vName);
+        func_type.printMsg();
+        return func_type;
+    }
     public static Tuple<HashMap<String,String>, String> lookup_method_sig(String cName, String mName) {
-        return cdesc.get(cName).y.rec.get(mName);
+        Tuple<VarSig, MSig> msig = cdesc.get(cName);
+        if(msig == null)
+            return null;
+        return msig.y.rec.get(mName);
     }
 
     public static String lookup_flat_func_name(String cName, String mName) {

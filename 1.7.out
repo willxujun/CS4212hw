@@ -6,31 +6,38 @@ Error: Unknown variable binding variable
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Class Main has unknown variable variable2
+Error: field assign: RHS of l value does not type check for field variable2
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Class Main has unknown variable variable3
+Error: field assign: RHS of l value does not type check for field variable3
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Class Main has unknown variable variable4
+Error: field assign: RHS of l value does not type check for field variable4
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Class Main has unknown variable variable5
+Error: field assign: RHS of l value does not type check for field variable5
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Class Main has unknown variable variable6
+Error: field assign: RHS of l value does not type check for field variable6
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Class Main has unknown variable variable7
+Error: field assign: RHS of l value does not type check for field variable7
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Class Main has unknown variable variable8
+Error: field assign: RHS of l value does not type check for field variable8
 In method main
 In class Main
 
@@ -55,7 +62,7 @@ Program
             (Bool true)
           Assign variable5
             This
-            BinExp Not
+            BinExp Or
               (Bool true)
               (Bool false)
           Assign variable6

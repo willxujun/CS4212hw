@@ -23,8 +23,8 @@ Program
                 UExp Not
                   (BinExp And)
                     BinExp And
-                      (BinExp Not)
-                        BinExp Not
+                      (BinExp Or)
+                        BinExp Or
                           (Id t1)
                           (Id t2)
                       (Id t3)

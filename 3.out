@@ -4,7 +4,7 @@ Error: l expression has different type from r
 In method main
 In class Main
 
-Error: Assigning type Bool to t1: Int
+Error: Assigning type Bool to t1 of type Int
 In method main
 In class Main
 
@@ -12,27 +12,62 @@ Error: Constructor of unknown class Compute
 In method main
 In class Main
 
-Error: Variable help has no field chachedValue
+Error: r value does not type check in assignment to help
 In method main
 In class Main
 
-Error: Accessing field of a non-object
+Error: field assign: RHS of l value does not type check for field chachedValue
 In method main
 In class Main
 
-Error: Unknown class Compute
+Error: Unknown function binding atom
 In method main
 In class Main
 
-Error: Unknown class Compute
+Error: Calling a non-function type
 In method main
 In class Main
 
-Error: Unknown class Compute
+Error: field assign: LHS of l value does not type check for field id
 In method main
 In class Main
 
-Error: Method call is ill-formed
+Unknwon Class Compute or unknown function addSquares
+Error: Call to unknown function addSquares
+In method main
+In class Main
+
+Error: Calling a non-function type
+In method main
+In class Main
+
+Unknwon Class Compute or unknown function square
+Error: Call to unknown function square
+In method main
+In class Main
+
+Error: Calling a non-function type
+In method main
+In class Main
+
+Unknwon Class Compute or unknown function square
+Error: Call to unknown function square
+In method main
+In class Main
+
+Error: Calling a non-function type
+In method main
+In class Main
+
+Error: r value does not type check in assignment to t2
+In method main
+In class Main
+
+Error: Should not reach here...
+In method main
+In class Main
+
+Error: Calling a non-function type
 In method main
 In class Main
 
@@ -40,7 +75,11 @@ Error: Unknown variable binding dynamic
 In method main
 In class Main
 
-Error: Unknown class 
+Error: Dispatch object does not type check for call to dispatch
+In method main
+In class Main
+
+Error: Calling a non-function type
 In method main
 In class Main
 
@@ -48,7 +87,7 @@ Error: Unknown variable binding id
 In method main
 In class Main
 
-Error: Class not found Bool
+Error: Access RHS cannot find variable fieldname1
 In method main
 In class Main
 
@@ -152,7 +191,7 @@ Program
           Bool j
         StatementList
           If
-            BinExp Not
+            BinExp Or
               (Id i)
               (Id j)
             StatementList

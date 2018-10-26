@@ -1008,7 +1008,7 @@ class CUP$Parser$actions {
 		int rleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int rright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression r = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		RESULT = new BinExp(new Not(), l, r); 
+		RESULT = new BinExp(new Or(), l, r); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",18, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

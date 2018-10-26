@@ -15,7 +15,7 @@ Program
         VariableList
         StatementList
           Assign a
-            BinExp Not
+            BinExp Or
               (Int 13)
               (Int 12)
 

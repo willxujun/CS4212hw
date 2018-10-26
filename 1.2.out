@@ -1,79 +1,69 @@
-Error: Unknown variable binding t2
-In method main
-In class Main
+===== CData3 ===== 
+class A
+    B b
+    Int value
+class Main
+class D
+    A a
+class C
+    A a
+    D d
+class B
+    C c
 
-Error: Unknown variable binding t1
-In method main
-In class Main
+===== CMtd3 ===== 
+Void %Main_0 [Main this]
+[A a, Int value, A _t3, B _t5, C _t7, A _t9, Int _t11, Int _t12, Int _t13, Int _t14, B _t16, C _t17, D _t19, A _t20, Int _t22, Int _t23, Int _t24, Int _t25]
+    _t3 = new A();
+    a = _t3;
+    _t5 = %A_1 [a];
+    _t7 = %B_0 [_t0];
+    _t9 = %C_1 [_t1];
+    _t11 = 2;
+    _t12 = 4;
+    _t13 = 3;
+    _t14 = %A_0 [_t2, _t11, _t12, _t13];
+    value = _t14;
+    _t16 = %A_1 [a];
+    _t17 = _t16.c;
+    _t19 = %C_0 [c];
+    _t20 = _t19.a;
+    _t22 = 1;
+    _t23 = 2;
+    _t24 = 3;
+    _t25 = %A_0 [a, _t22, _t23, _t24];
+    value = _t25;
+    return;
 
-Error: Return statement does not have appropriate type
-In method main
-In class Main
+B %A_1 [A this]
+[]
+    return b;
 
-Program
-  Class Main
-    VariableList
-    MethodList
-      Void main
-        FormalList
-          Int i
-          Int a
-          Int b
-          Int d
-        VariableList
-        StatementList
-          While
-            (Bool true)
-            StatementList
-              Assign b
-                (Int 340)
-              Assign t1
-                (Id t2)
-          While
-            (Bool true)
-            StatementList
-          Return
-            (Id t1)
-          Return
-  Class Empty
-    VariableList
-      Nihilism n
-    MethodList
-      Int convolutedelse
-        FormalList
-        VariableList
-        StatementList
-          If
-            BinExp GT
-              (Int 1)
-              BinExp Mult
-                (Int 2)
-                (Int 3)
-            StatementList
-              Return
-                (Id n)
-            StatementList
-              If
-                BinExp EQ
-                  (Int 2)
-                  (Int 3)
-                StatementList
-                  Print
-                    (Str (Oh gargoyles))
-                StatementList
-                  Return
-                    (Str (Gargoyles))
-  Class Dummy
-    VariableList
-      Dummy j
-    MethodList
-      Int dummy
-        FormalList
-        VariableList
-          Bool i
-          Bool j
-        StatementList
-          Return
-            (Id i)
+Int %A_0 [A this, Int a, Int b, Int c]
+[Int _t26, Int _t27, Int _t28, Int _t29, Int _t30]
+    _t26 = a * b;
+    _t27 = _t26 - c;
+    _t28 = _t27;
+    _t29 = - _t28;
+    _t30 = this.value;
+    _t30 = _t29;
+    return value;
 
-Semantics error detected. Refer to msgs and parse tree.
+C %B_0 [B this]
+[]
+    return c;
+
+A %C_1 [C this]
+[]
+    return a;
+
+D %C_0 [C this]
+[]
+    return d;
+
+A %D_0 [D this]
+[A _t31]
+    _t31 = this.a;
+    return _t31;
+
+

@@ -10,7 +10,9 @@ abstract class Expression extends Node {
 
     public abstract Type typecheck(LocalEnvironment env);
 
-    public abstract ArrayList<Instruction> genIR3(String classId);
+    public abstract ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps);
+
+    public boolean isDispatch() {return false;}
 }
 
 class Bool extends Expression {
@@ -34,10 +36,10 @@ class Bool extends Expression {
     }
 
     @Override
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         Temp t = new Temp("Bool");
-        Decl3.addDecl(ret, t);
+        temps.add(new Decl3(t));
         ret.add(new Assign3(t, new Bool3(val)));
         return ret;
     }
@@ -63,10 +65,10 @@ class Int extends Expression {
         return new Type("Int");
     }
     @Override
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         Temp t = new Temp("Int");
-        Decl3.addDecl(ret, t);
+        temps.add(new Decl3(t));
         ret.add(new Assign3(t, new Int3(val)));
         return ret;
     }
@@ -92,10 +94,10 @@ class Str extends Expression {
         return new Type("String");
     }
     @Override
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         Temp t = new Temp("Str");
-        Decl3.addDecl(ret, t);
+        temps.add(new Decl3(t));
         ret.add(new Assign3(t, new Str3(val)));
         return ret;
     }
@@ -162,15 +164,15 @@ class BinExp extends Expression {
         }
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> codeL = l.genIR3(classId);
-        ArrayList<Instruction> codeR = r.genIR3(classId);
+        ArrayList<Instruction> codeL = l.genIR3(classId, temps);
+        ArrayList<Instruction> codeR = r.genIR3(classId, temps);
         Var3 resL = Instruction.getResultFromList(codeL);
         Var3 resR = Instruction.getResultFromList(codeR);
 
         Temp t = new Temp(type);
-        Decl3.addDecl(ret, t);
+        temps.add(new Decl3(t));
         ret.addAll(codeL);
         ret.addAll(codeR);
         ret.add(new Bexp3(t,resL,resR, op.getOp3()));
@@ -201,11 +203,11 @@ class UExp extends Expression {
 
     public Type typecheck(LocalEnvironment env) {
         Type exp_type = exp.typecheck(env);
-        if(op.getType().equals("Arith") && exp_type.equals("Int")) {
+        if(op.getType().equals("Arith") && exp_type.equals(new Type("Int"))) {
             type = new Type("Int");
             return type;
         }
-        else if(op.getType().equals("Boolean") && exp_type.equals("Bool")) {
+        else if(op.getType().equals("Boolean") && exp_type.equals(new Type("Bool"))) {
             type = new Type("Bool");
             return type;
         }
@@ -216,13 +218,13 @@ class UExp extends Expression {
         }
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> code = exp.genIR3(classId);
+        ArrayList<Instruction> code = exp.genIR3(classId, temps);
         Var3 res = Instruction.getResultFromList(code);
 
         Temp t = new Temp(type);
-        Decl3.addDecl(ret, t);
+        temps.add(new Decl3(t));
         ret.addAll(code);
         ret.add(new Uexp3(t,res,op.getOp3()));
         return ret;
@@ -242,6 +244,23 @@ abstract class Atom extends Expression {
     public boolean isAccess() {
         return false;
     }
+
+    public Type typecheck_func(LocalEnvironment env) {
+        Type type = new Error_t("Should not reach here...", env.currMethod, env.currClass);
+        type.printMsg();
+        return type;
+    }
+    
+    public String getCallerId() {
+        return null;
+    }
+    public Type getCallerClass() {
+        return null;
+    }
+    public String getFuncId() {
+        return null;
+    }
+
 }
 
 class This extends Atom {
@@ -265,11 +284,9 @@ class This extends Atom {
     }
 
     @Override
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        Temp t = new Temp(type);
-        Decl3.addDecl(ret, t);
-        ret.add(new Assign3(t, new Var3("this")));
+        ret.add(new Obj3("this"));
         return ret;
     }
 }
@@ -289,10 +306,9 @@ class Null extends Atom {
     public Type typecheck(LocalEnvironment env) {
         return new Null_t();
     }
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        Temp t = new Temp("null");
-        ret.add(new Assign3(t, new Var3("null")));
+        ret.add(new Obj3("null"));
         return ret;
     }
 }
@@ -321,13 +337,13 @@ class ExpParen extends Atom {
         return type;
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> code = exp.genIR3(classId);
+        ArrayList<Instruction> code = exp.genIR3(classId, temps);
         Var3 res = Instruction.getResultFromList(code);
 
         Temp t = new Temp(type);
-        Decl3.addDecl(ret, t);
+        temps.add(new Decl3(t));
         ret.addAll(code);
         ret.add(new Assign3(t,res));
         return ret;
@@ -337,6 +353,25 @@ class ExpParen extends Atom {
 class Id extends Atom {
     public String objectId;
     public Type objectType;
+
+    public Type callerClass;
+    public String callerId;
+    public String funcId;
+
+    @java.lang.Override
+    public Type getCallerClass() {
+        return callerClass;
+    }
+
+    @java.lang.Override
+    public String getCallerId() {
+        return callerId;
+    }
+
+    @java.lang.Override
+    public String getFuncId() {
+        return funcId;
+    }
 
     public Id(String objectId) {
         this.objectId = objectId;
@@ -358,20 +393,33 @@ class Id extends Atom {
 
     public Type typecheck(LocalEnvironment env) {
         Type t = env.lookup_var(objectId);
-        if(t == null) {
+        if(t.isError()) {
             objectType = new Error_t("Unknown variable binding " + objectId, env.currMethod, env.currClass);
             objectType.printMsg();
             return objectType;
         }
         objectType = t;
-        return t;
+        return objectType;
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public Type typecheck_func(LocalEnvironment env) {
+        Type t = env.lookup_func(objectId);
+        if(t.isError()) {
+            objectType = new Error_t("Unknown function binding " + objectId, env.currMethod, env.currClass);
+            objectType.printMsg();
+            return objectType;
+        }
+        //fill up function info
+        callerId = "this";
+        funcId = objectId;
+        callerClass = env.lookup_var("this");
+        objectType = t;
+        return objectType;
+    }
+
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        Temp t = new Temp(objectType);
-        Decl3.addDecl(ret, t);
-        ret.add(new Assign3(t, new Var3(objectId)));
+        ret.add(new Obj3(objectId));
         return ret;
     }
 }
@@ -403,10 +451,10 @@ class New extends Atom {
         return type;
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         Temp t = new Temp(typeId);
-        Decl3.addDecl(ret, t);
+        temps.add(new Decl3(t));
         ret.add(new Assign3(t, new New3(typeId)));
         return ret;
     }
@@ -417,9 +465,28 @@ class Access extends Atom {
     public String fieldName;
     public Type type;
 
+    public Type callerClass;
+    public String callerId;
+    public String funcId;
+
     public Access(Atom obj, String fieldName) {
         this.obj = obj;
         this.fieldName = fieldName;
+    }
+
+    @java.lang.Override
+    public String getCallerId() {
+        return callerId;
+    }
+
+    @java.lang.Override
+    public Type getCallerClass() {
+        return callerClass;
+    }
+
+    @java.lang.Override
+    public String getFuncId() {
+        return funcId;
     }
 
     @java.lang.Override
@@ -439,44 +506,79 @@ class Access extends Atom {
     }
 
     public Type typecheck(LocalEnvironment env) {
-        if(!obj.isId()) {
-            type = new Error_t("Accessing non-object", env.currMethod, env.currClass);
+        //left type cannot be Function_t
+        Type obj_type = obj.typecheck(env);
+        if(obj_type.isError()) {
+            type = new Error_t("Access LHS does not type check", env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        Type object_type = env.lookup_var(((Id)obj).objectId);
-        //no such binding
-        if(object_type == null) {
-            type = new Error_t("Unknown variable binding", env.currMethod, env.currClass);
+        /*
+        if(obj_type.isFunction()) {
+            type = new Error_t("Access LHS cannot be function type");
             type.printMsg();
             return type;
         }
-        Tuple<VarSig, MSig> classInfo = ClassDescriptor.lookup(object_type.getId());
-        //no such class
-        if(classInfo == null) {
-            type = new Error_t("Class not found " + object_type, env.currMethod, env.currClass);
+        if(obj_type.isTuple()) {
+            obj_type = obj_type.fst();
+        }
+        */
+        //overall type cannot be function
+        Type var_type = ClassDescriptor.lookup_var(obj_type.getId(), fieldName);
+        if(var_type.isError()) {
+            type = new Error_t("Access RHS cannot find variable " + fieldName, env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        Type field_type = ClassDescriptor.lookup_field_type(object_type.getId(),fieldName);
-        //no such field
-        if(field_type == null) {
-            type = new Error_t("No such field " + fieldName, env.currMethod, env.currClass);
-            type.printMsg();
-            return type;
-        }
-        type = field_type;
+        this.type = var_type;
         return type;
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public Type typecheck_func(LocalEnvironment env) {
+        Type obj_type = obj.typecheck(env);
+        if(obj_type.isError()) {
+            type = new Error_t("Dispatch object does not type check for call to " + fieldName, env.currMethod, env.currClass);
+            type.printMsg();
+            return type;
+        }
+        Type func_type = ClassDescriptor.lookup_func(obj_type.getId(), fieldName);
+        if(func_type.isError()) {
+            type = new Error_t("Call to unknown function " + fieldName, env.currMethod, env.currClass);
+            type.printMsg();
+            return type;
+        }
+        this.type = func_type;
+        //fill up function info
+        callerClass = obj_type;
+        funcId = fieldName;
+        if(obj.isId()) {
+            callerId = ((Id)obj).objectId;
+        } else if(obj.isAccess()) {
+            callerId = ((Access)obj).fieldName;
+        } else {
+            //nameless obj
+            Temp t = new Temp(obj_type);
+            callerId = t.toString();
+        }
+        return type;
+    }
+
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
+        ArrayList<Instruction> code = obj.genIR3(classId, temps);
+        Var3 res = Instruction.getResultFromList(code);
+        ret.addAll(code);
+
         Temp t = new Temp(type);
-        Decl3.addDecl(ret, t);
-        String objectName = ((Id)obj).objectId;
-        ret.add(new Assign3(t,
-                new Access3(objectName, fieldName)));
-        return ret;
+        if(!type.isFunction()) {
+            temps.add(new Decl3(t));
+            ret.add(new Assign3(t,
+                    new Access3(res.getId(), fieldName)));
+            return ret;
+        } else {
+            ret.add(new Obj3(callerId));
+            return ret;
+        }
     }
 }
 
@@ -484,6 +586,8 @@ class Dispatch extends Atom {
     public Atom obj;
     public Expressions exps;
     public Type type;
+    public String callClassId;
+    public String funcId;
 
     public Dispatch(Atom obj, Expressions exps) {
         this.obj = obj;
@@ -498,121 +602,83 @@ class Dispatch extends Atom {
         return ls;
     }
 
+    @Override
+    public boolean isDispatch() {
+        return true;
+    }
+
     @java.lang.Override
     public java.lang.String toString() {
         return "Dispatch";
     }
 
     public Type typecheck(LocalEnvironment env) {
-        int res = 0;
-        Type exp_type;
-        String mName;
-        Tuple<HashMap<String, String>, String> methodSig;
-        HashMap<String, String> formalMap;
-        ArrayList<Expression> expList = exps.exps;
-
-        String object_name;
-        Type object_type;
-        Tuple<VarSig, MSig> class_info;
-        //obj is of class Id, expressions match method signature
-        if (obj.isId()) {
-            mName = ((Id) obj).objectId;
-            methodSig = env.lookup_mtd(mName);
-            if (methodSig != null) {
-                formalMap = methodSig.x;
-                res = exps.check_exps(formalMap, env);
-                if (res == 0) {
-                    type = new Type(methodSig.y);
-                    return type;
-                } else {
-                    this.reportResult(res, env, mName);
-                    return type;
-                }
-            }
-            type = new Error_t("Method signature not found" + mName, env.currMethod, env.currClass);
+        //left type could be function or tuple type. Parse it to function type
+        Type obj_type = obj.typecheck_func(env);
+        //System.out.println(obj_type);
+        if(!obj_type.isFunction()) {
+            type = new Error_t("Calling a non-function type", env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        //obj is of class Access, obj.obj is of class Id, expressions match
-        // CD.lookup(env.lookup(obj.obj.objectId)).y.rec.get(obj.fieldName)
-        if (obj.isAccess() && ((Access) obj).obj.isId()) {
-            object_name = ((Id) ((Access) obj).obj).objectId;
-            object_type = ((Id) ((Access) obj).obj).typecheck(env);
-            if (object_type == null) {
-                type = new Error_t("Unknown variable binding " + object_name, env.currMethod, env.currClass);
-                type.printMsg();
-                return type;
-            }
-            class_info = ClassDescriptor.lookup(object_type.getId());
-            if (class_info == null) {
-                type = new Error_t("Unknown class " + object_type, env.currMethod, env.currClass);
-                type.printMsg();
-                return type;
-            }
-            mName = ((Access) obj).fieldName;
-            methodSig = ClassDescriptor.lookup_method_sig(object_type.getId(), mName);
-            formalMap = methodSig.x;
-            res = exps.check_exps(formalMap, env);
-            if (res == 0) {
-                type = new Type(methodSig.y);
-                return type;
-            } else {
-                this.reportResult(res, env, mName);
-                return type;
-            }
-        }
-        type = new Error_t("Method call is ill-formed", env.currMethod, env.currClass);
-        type.printMsg();
-        return type;
-    }
 
-    private void reportResult(int res, LocalEnvironment env, String mName) {
-        if (res == 1) {
-            type = new Error_t("Args list has wrong cardinality when calling " + mName, env.currMethod, env.currClass);
+        Type exps_type = exps.typecheck(env);
+        if(exps_type.isError()) {
+            type = new Error_t("Some function parameters do not type check", env.currMethod, env.currClass);
             type.printMsg();
-        } else if (res == 2) {
-            type = new Error_t("Some arg expression does not typecheck when calling " + mName, env.currMethod, env.currClass);
-            type.printMsg();
-        } else if (res == 3) {
-            type = new Error_t("Arg and formal type mismatch when calling" + mName, env.currMethod, env.currClass);
-            type.printMsg();
+            return type;
         }
+
+        int res = ((Function_t)obj_type).match((Tuple_t)exps_type);
+        switch (res) {
+        case 0:
+            type = new Type(((Function_t)obj_type).getReturnType());
+            return type;
+        case 1:
+            type = new Error_t("Function call has wrong argument cardinality", env.currMethod, env.currClass);
+            type.printMsg();
+            return type;
+        case 2:
+            type = new Error_t("Function call has wrong argument type", env.currMethod, env.currClass);
+            type.printMsg();
+            return type;
+        default:
+            System.out.println(res);
+            type = new Error_t("Match function should not reach here");
+            type.printMsg();
+            return type;
+        }
+
     }
 
     @Override
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> params = new ArrayList<Instruction>();
         ArrayList<Instruction> code = new ArrayList<Instruction>();
         Var3 res;
+        VarList3 paramList = new VarList3();
 
-        //callClassId is for dynamic dispatch only
-        Type callClassId;
-        String callObjectId;
-        String funcName;
+        Type callerClass = obj.getCallerClass();
+        String callerId = obj.getCallerId();
+        String funcName = obj.getFuncId();
+
+        code = obj.genIR3(classId, temps);
+        res = Instruction.getResultFromList(code);
+        ret.addAll(code);
 
         for (Expression e : exps.exps) {
-            code = e.genIR3(classId);
+            code = e.genIR3(classId, temps);
             ret.addAll(code);
             res = Instruction.getResultFromList(code);
-            params.add(new Param3(res));
+            paramList.add(res);
         }
+
         Temp t = new Temp(type);
-        Decl3.addDecl(ret, t);
-        if (obj.isId()) {
-            params.add(0, new Param3(new Var3("this")));
-            ret.addAll(params);
-            funcName = ClassDescriptor.lookup_flat_func_name(classId, ((Id) obj).objectId);
-            ret.add(new ECall3(t, new Var3(funcName), new Int3(params.size())));
-            return ret;
-        } else {
-            callObjectId = ((Id) ((Access) obj).obj).objectId;
-            params.add(0, new Param3(new Var3(callObjectId)));
-            ret.addAll(params);
-            callClassId = ((Id) ((Access) obj).obj).objectType;
-            funcName = ClassDescriptor.lookup_flat_func_name(callClassId.getId(), ((Access) obj).fieldName);
-            ret.add(new ECall3(t, new Var3(funcName), new Int3(params.size())));
-        }
+        temps.add(new Decl3(t));
+        paramList.add(0, new Var3(callerId));
+        funcName = ClassDescriptor.lookup_flat_func_name(callerClass.getId(), funcName);
+        ret.add(new ECall3(t, new Var3(funcName), paramList));
         return ret;
     }
 }

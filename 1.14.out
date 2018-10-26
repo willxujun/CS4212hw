@@ -5,76 +5,45 @@ class Functional
 
 ===== CMtd3 ===== 
 Void %MainC_0 [MainC this]
-[Functional fo, Int i, Int j]
+[Functional fo, Int i, Int j, Int _t0, Bool _t1, Functional _t2, Int _t4, Str _t5]
     readln i;
-    Bool t2;
-    Int t0;
-    t0 = i;
-    Int t1;
-    t1 = 0;
-    t2 = t0 > t1;
-    if t2 goto 0;
+    _t0 = 0;
+    _t1 = i > _t0;
+    if _t1 goto 0;
     goto 1;
     L0:
-    Functional t3;
-    t3 = new Functional();
-    fo = t3;
-    Int t5;
-    Int t4;
-    t4 = i;
-    PARAM fo;
-    PARAM t4;
-    t5 = CALL%Functional_2 2;
-    j = t5;
-    Int t6;
-    t6 = j;
-    println t6;
+    _t2 = new Functional();
+    fo = _t2;
+    null null;
+    _t4 = %Functional_2 [fo, i];
+    j = _t4;
+    println j;
     L1:
-    Str t7;
-    t7 = "Error";
-    println t7;
-    return null;
+    _t5 = "Error";
+    println _t5;
+    return;
 
 Int %Functional_2 [Functional this, Int b]
-[]
-    Int t8;
-    t8 = 3;
-    return t8;
+[Int _t6]
+    _t6 = 3;
+    return _t6;
 
 Bool %Functional_1 [Functional this, Int input]
-[Int a, Int b]
-    Int t11;
-    Int t9;
-    t9 = input;
-    Int t10;
-    t10 = 5;
-    t11 = t9 * t10;
-    a = t11;
-    Int t14;
-    Int t12;
-    t12 = input;
-    Int t13;
-    t13 = 7;
-    t14 = t12 + t13;
-    b = t14;
-    Bool t18;
-    Bool t17;
-    Int t15;
-    t15 = a;
-    Int t16;
-    t16 = b;
-    t17 = t15 >= t16;
-    t18 = t17;
-    return t18;
+[Int a, Int b, Int _t7, Int _t8, Int _t9, Int _t10, Bool _t11, Bool _t12]
+    _t7 = 5;
+    _t8 = input * _t7;
+    a = _t8;
+    _t9 = 7;
+    _t10 = input + _t9;
+    b = _t10;
+    _t11 = a >= b;
+    _t12 = _t11;
+    return _t12;
 
 Bool %Functional_0 [Functional this]
-[]
-    Bool t20;
-    Int t19;
-    t19 = 7;
-    PARAM this;
-    PARAM t19;
-    t20 = CALL%Functional_1 2;
-    return t20;
+[Int _t13, Bool _t14]
+    _t13 = 7;
+    _t14 = %Functional_1 [this, _t13];
+    return _t14;
 
 

@@ -1,57 +1,83 @@
-// Source: Hsiang
-
-/* Mainly test multiple class (defined later but referenced first),
-Variable shadowing in Dummy class,
-chained field access expressions,
-e.g. this.getCompute().square(-3);
-Test combination of "if .. else .." "return" and "while"
-*/
 class Main {
-  Void main(Int i, Int a, Int b,Int d){
+  Void main(Int i, Int k, Int b,Int c2){
     Int t1;
     Int t2;
-    Compute help;
+    Bool t3;
     String c;
-    c = "GJMI if \n\t(else)";
-/*
-help = new Compute();
-help.chachedValue = t1 * 3;
-5t1 = help.addSquares(a,b) + help.square(i);
-t2 = help.square(d);
-if(t2>t1){
-println("Square of d larger than sum of squares");
-}
-else{
-println("Square of d larger than sum of squares");
-}
-*/
-    while(true){
-//
-      t1 = 1*2;
-      t1 = t2 ;
+    Compute help;
+    Dummy dummy;
+
+    help.dummy.b = t1 + t2 + k + b;
+    help = new Compute();//1
+    help.chachedValue = -(t1 * 3) > t2;
+
+    while(t1+t2 > 5){
+    b = 340 ;
+    t1 = t2 ;
     }
-  }
+
+    if(k+b > t1 || k-t2<t1 && t3 || help.chachedValue){
+        b = t1+t2;
+        help.dummy.a = 1;
+    }else{
+        b = 3 * 4;
+    }
+
+    println(t2);
+    }
+
 }
-class Dummy {
-  Compute c;
-  Int i;
-  Dummy j;
-  Int dummy() {
-    Bool i;
-    Bool j;
-    if (i || j) {
-      return 1;
+
+class Compute{
+    Int x;
+    Int y;
+    Dummy dummy;
+    Bool chachedValue;
+
+
+    Int compute(Int a, Int b){
+        Compute help;
+        help = this;
+        this.dummy.a = this.compute(1,2);
+        return 1;
+    }
+
+
+}
+
+class Dummy{
+    Int a;
+    Int b;
+    Compute c;
+}
+
+class Empty {
+    Nihilism n;
+    Int convolutedelse() {
+    if (1 > 2 * 3) {
+        return 3;
     } else {
-      while(i) {
-        i = !j;
-      }
-      c = this.getCompute();
+        if (2 == 3) {
+            return 10000;
+        } else {
+            return 3; 
+        }
     }
-    return this.getCompute().square(-3);
-    return i ;
-  }
-  Compute getCompute() {
-    // c = new Compute();
-    return c;
-  }
+    //then (7 * 9) else (0 / 0);
+    return 1;
+    }
+
 }
+
+class Dummy1 {
+Dummy j1;
+Int dummy() {
+Int i;
+Bool j;
+return i ;
+}
+}
+
+class Nihilism{
+}
+

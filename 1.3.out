@@ -8,42 +8,27 @@ class Main
 
 ===== CMtd3 ===== 
 Void %Main_0 [Main this]
-[Box b, Int sum]
-    Box t0;
-    t0 = new Box();
-    b = t0;
-    Int t2;
-    t2 = b.x;
-    t2 = t1;
-    Int t4;
-    t4 = b.y;
-    t4 = t3;
-    Int t6;
-    t6 = b.z;
-    t6 = t5;
-    Int t7;
-    PARAM b;
-    t7 = CALL%Box_0 1;
-    sum = t7;
-    Int t8;
-    t8 = sum;
-    println t8;
+[Box b, Int sum, Box _t0, Int _t1, Int _t2, Int _t3, Int _t4, Int _t5, Int _t6, Int _t8]
+    _t0 = new Box();
+    b = _t0;
+    _t1 = 10;
+    _t2 = b.x;
+    _t2 = _t1;
+    _t3 = 20;
+    _t4 = b.y;
+    _t4 = _t3;
+    _t5 = 30;
+    _t6 = b.z;
+    _t6 = _t5;
+    _t8 = %Box_0 [b];
+    sum = _t8;
+    println sum;
 
 Int %Box_0 [Box this]
-[Int sum]
-    Int t13;
-    Int t11;
-    Int t9;
-    t9 = x;
-    Int t10;
-    t10 = y;
-    t11 = t9 + t10;
-    Int t12;
-    t12 = z;
-    t13 = t11 + t12;
-    sum = t13;
-    Int t14;
-    t14 = sum;
-    return t14;
+[Int sum, Int _t9, Int _t10]
+    _t9 = x + y;
+    _t10 = _t9 + z;
+    sum = _t10;
+    return sum;
 
 

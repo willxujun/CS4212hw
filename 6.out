@@ -4,9 +4,8 @@ class Test
 
 ===== CMtd3 ===== 
 Int %Test_0 [Test this]
-[]
-    Int t0;
-    t0 = 0;
-    return t0;
+[Int _t0]
+    _t0 = 0;
+    return _t0;
 
 

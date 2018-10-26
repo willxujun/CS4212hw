@@ -7,6 +7,7 @@ public class Method extends Node {
     public Formals formals;
     public Variables vars;
     public Statements stmts;
+    public ArrayList<Decl3> temps;
 
     public Method(String type, String id, Formals formals, Variables vars, Statements stmts) {
         this.type = type;
@@ -44,10 +45,12 @@ public class Method extends Node {
     public ArrayList<Instruction> genIR3(String classId) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> curr;
+        ArrayList<Decl3> tempList = new ArrayList<Decl3>();
         for(Statement s: stmts.statements) {
-            curr = s.genIR3(classId);
+            curr = s.genIR3(classId, tempList);
             ret.addAll(curr);
         }
+        this.temps = tempList;
         return ret;
     }
 

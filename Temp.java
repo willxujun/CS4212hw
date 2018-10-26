@@ -19,11 +19,11 @@ public class Temp extends Var3 {
         return type;
     }
 
-    public int getId() {
-        return this.id;
+    public String getId() {
+        return this.toString();
     }
 
     public String toString() {
-        return "t" + String.valueOf(this.id);
+        return "_t" + String.valueOf(this.id);
     }
 }

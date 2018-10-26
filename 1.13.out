@@ -1,48 +1,94 @@
-Error: Accessing non-object
+Unknwon Class B or unknown function x
+Error: Call to unknown function x
 In method main
 In class Test4
 
-Error: Unknown class C
+Error: Calling a non-function type
 In method main
 In class Test4
 
-Error: Unknown class B
+Error: Dispatch object does not type check for call to y
 In method main
 In class Test4
 
-Error: Unknown class B
+Error: Calling a non-function type
 In method main
 In class Test4
 
-Error: Class not found B
+Error: Access LHS does not type check
 In method main
 In class Test4
 
-Error: Class not found B
+Error: Access LHS does not type check
 In method main
 In class Test4
 
-Error: Error in unary expression
+Error: r value does not type check in assignment to k
 In method main
 In class Test4
 
-Error: Accessing non-object
+Unknwon Class C or unknown function x
+Error: Call to unknown function x
 In method main
 In class Test4
 
-Error: Error in unary expression
+Error: Calling a non-function type
 In method main
 In class Test4
 
-Error: Unknown class B
+Unknwon Class B or unknown function x
+Error: Call to unknown function x
 In method main
 In class Test4
 
-Error: Class not found B
+Error: Calling a non-function type
 In method main
 In class Test4
 
-Error: Assigning type Bool to k: Int
+Unknwon Class B or unknown function z
+Error: Call to unknown function z
+In method main
+In class Test4
+
+Error: Calling a non-function type
+In method main
+In class Test4
+
+Error: Access RHS cannot find variable y
+In method main
+In class Test4
+
+Error: Access RHS cannot find variable y
+In method main
+In class Test4
+
+Unknwon Class B or unknown function z
+Error: Call to unknown function z
+In method main
+In class Test4
+
+Error: Calling a non-function type
+In method main
+In class Test4
+
+Error: Access LHS does not type check
+In method main
+In class Test4
+
+Unknwon Class B or unknown function x
+Error: Call to unknown function x
+In method main
+In class Test4
+
+Error: Calling a non-function type
+In method main
+In class Test4
+
+Error: Access RHS cannot find variable z
+In method main
+In class Test4
+
+Error: Assigning type Bool to k of type Int
 In method main
 In class Test4
 
@@ -50,23 +96,68 @@ Error: Constructor of unknown class C
 In method main
 In class Test4
 
-Error: Method call is ill-formed
+Error: r value does not type check in assignment to c
 In method main
 In class Test4
 
-Error: Method call is ill-formed
+Class Test4 has unknown variable c
+Error: Access RHS cannot find variable c
 In method main
 In class Test4
 
-Error: Unknown variable binding
+Error: Dispatch object does not type check for call to d
 In method main
 In class Test4
 
-Error: Accessing non-object
+Error: Calling a non-function type
 In method main
 In class Test4
 
-Error: Assigning type Int to c: C
+Error: Unknown variable binding y
+In method main
+In class Test4
+
+Error: Dispatch object does not type check for call to k
+In method main
+In class Test4
+
+Error: Calling a non-function type
+In method main
+In class Test4
+
+Error: Access LHS does not type check
+In method main
+In class Test4
+
+Error: Dispatch object does not type check for call to get
+In method main
+In class Test4
+
+Error: Calling a non-function type
+In method main
+In class Test4
+
+Error: r value does not type check in assignment to c
+In method main
+In class Test4
+
+Error: Unknown variable binding y
+In method main
+In class Test4
+
+Error: Access LHS does not type check
+In method main
+In class Test4
+
+Error: Access RHS cannot find variable y
+In method main
+In class Test4
+
+Error: Access LHS does not type check
+In method main
+In class Test4
+
+Error: Assigning type Int to c of type C
 In method main
 In class Test4
 
@@ -136,7 +227,7 @@ Program
                       ExpressionList
                 (Int 3)
           Assign k
-            BinExp Not
+            BinExp Or
               BinExp GT
                 Dispatch
                   Access x

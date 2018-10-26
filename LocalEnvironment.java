@@ -16,8 +16,15 @@ public class LocalEnvironment {
     public Type lookup_var(String varName) {
         String ret = vBindings.get(varName);
         if(ret == null)
-            return null;
+            return new Error_t("No such variable");
         return new Type(ret);
+    }
+
+    public Type lookup_func(String vName) {
+        Tuple<HashMap<String,String>, String> f_sig = mSignatures.get(vName);
+        if(f_sig == null)
+            return new Error_t("No such function");
+        return new Function_t(f_sig.y, new ArrayList<String>(f_sig.x.values()));
     }
 
     public Tuple<HashMap<String,String>, String> lookup_mtd(String mName) {

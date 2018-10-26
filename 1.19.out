@@ -5,47 +5,28 @@ class FieldAccess
 
 ===== CMtd3 ===== 
 Void %FieldAccessMain_0 [FieldAccessMain this]
-[Int a, Int b, Int temp, FieldAccess f]
-    FieldAccess t0;
-    t0 = new FieldAccess();
-    f = t0;
-    Int t2;
-    Int t1;
-    t1 = 5;
-    PARAM f;
-    PARAM t1;
-    t2 = CALL%FieldAccess_0 2;
-    b = t2;
-    Int t4;
-    t4 = f.a;
-    t4 = t3;
-    Int t10;
-    Int t8;
-    Int t7;
-    Int t5;
-    t5 = f.a;
-    Int t6;
-    t6 = b;
-    t7 = t5 + t6;
-    t8 = t7;
-    Int t9;
-    t9 = 2;
-    t10 = t8 * t9;
-    temp = t10;
-    Int t11;
-    t11 = temp;
-    println t11;
+[Int a, Int b, Int temp, FieldAccess f, FieldAccess _t0, Int _t2, Int _t3, Int _t4, Int _t5, Int _t6, Int _t7, Int _t8, Int _t9, Int _t10]
+    _t0 = new FieldAccess();
+    f = _t0;
+    _t2 = 5;
+    _t3 = %FieldAccess_0 [f, _t2];
+    b = _t3;
+    _t4 = 7;
+    _t5 = f.a;
+    _t5 = _t4;
+    _t6 = f.a;
+    _t7 = _t6 + b;
+    _t8 = _t7;
+    _t9 = 2;
+    _t10 = _t8 * _t9;
+    temp = _t10;
+    println temp;
 
 Int %FieldAccess_0 [FieldAccess this, Int x]
-[]
-    Int t15;
-    Int t14;
-    Int t12;
-    t12 = 6;
-    Int t13;
-    t13 = x;
-    t14 = t12 + t13;
-    t15 = t14;
-    return t15;
+[Int _t11, Int _t12, Int _t13]
+    _t11 = 6;
+    _t12 = _t11 + x;
+    _t13 = _t12;
+    return _t13;
 
 

@@ -1,16 +1,13 @@
-Error: Error in unary expression
-In method dummy
-In class Dummy
-
-Error: Method call is ill-formed
-In method dummy
-In class Dummy
-
 Error: If statement has different branch types
 In method dummy
 In class Dummy
 
-Error: Method call is ill-formed
+Unknwon Class Compute or unknown function square
+Error: Call to unknown function square
+In method dummy
+In class Dummy
+
+Error: Calling a non-function type
 In method dummy
 In class Dummy
 
@@ -51,7 +48,7 @@ Program
           Bool j
         StatementList
           If
-            BinExp Not
+            BinExp Or
               (Id i)
               (Id j)
             StatementList

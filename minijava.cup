@@ -204,7 +204,7 @@ exps        ::= {:RESULT = new Expressions();:}
 expsplus    ::= exp:e {:RESULT = new Expressions(e); :}
                 | expsplus:es COMMA exp:e {:RESULT = es.append(e);:}
                 ;
-exp         ::= exp:l OR exp:r {:RESULT = new BinExp(new Not(), l, r); :}
+exp         ::= exp:l OR exp:r {:RESULT = new BinExp(new Or(), l, r); :}
                 | exp:l AND exp:r
                 {:RESULT = new BinExp(new And(), l, r); :}
                 | NOT exp:e

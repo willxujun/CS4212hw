@@ -77,8 +77,7 @@ public class Program extends Node {
             for(Method mtd: cl.ms.ms) {
                 code = mtd.genIR3(cl.id);
                 mtd.formals.formals.add(0, new Formal(cl.id, "this"));
-                //format mtd.formals, generate temporaries for mtd.vars
-                curr = new MethodData(cl.id, mtd.id, mtd.type, mtd.formals.formals, mtd.vars.vars, code);
+                curr = new MethodData(cl.id, mtd.id, mtd.type, mtd.formals.formals, mtd.vars.vars, code, mtd.temps);
                 ret.add(curr);
             }
         }
@@ -272,18 +271,18 @@ class IfStmt extends Statement {
         return type;
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> condTest = new ArrayList<Instruction>();
         ArrayList<Instruction> codeTrue = new ArrayList<Instruction>();
         ArrayList<Instruction> codeFalse = new ArrayList<Instruction>();
 
-        condTest = test.genIR3(classId);
+        condTest = test.genIR3(classId, temps);
         for(Statement s: this.codeTrue.statements) {
-            codeTrue.addAll(s.genIR3(classId));
+            codeTrue.addAll(s.genIR3(classId, temps));
         }
         for(Statement s: this.codeFalse.statements) {
-            codeFalse.addAll(s.genIR3(classId));
+            codeFalse.addAll(s.genIR3(classId, temps));
         }
         //connect lTrue with codeTrue and lFalse with codeFalse
         //condTest[n]; cJmp condRes lTrue; ucJmp lFalse; lTrue; codeTrue; lFalse; codeFalse;
@@ -339,14 +338,14 @@ class WhileStmt extends Statement {
         return type;
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> condTest = new ArrayList<Instruction>();
         ArrayList<Instruction> codeLoop = new ArrayList<Instruction>();
 
-        condTest = test.genIR3(classId);
+        condTest = test.genIR3(classId, temps);
         for(Statement s: loop.statements) {
-            codeLoop.addAll(s.genIR3(classId));
+            codeLoop.addAll(s.genIR3(classId, temps));
         }
         //connect lTrue with codeTrue and lFalse with codeFalse
         //condTest[n]; cJmp condRes lTrue; ucJmp lFalse; lTrue; codeTrue; lFalse; codeFalse;
@@ -391,22 +390,23 @@ class ReadStmt extends Statement {
 
     public Type typecheck(LocalEnvironment env) {
         Type type_id = env.lookup_var(intoId);
-        if(type_id != null && (type_id.equals(new Type("Int")) || type_id.equals(new Type("Bool")) || type_id.equals(new Type("String")))) {
-            type = new Type("Void");
-            return type;
-        }
-        else if (type_id == null) {
+        if (type_id.isError()) {
             type = new Error_t("Unknown variable binding " + intoId, env.currMethod, env.currClass);
             type.printMsg();
             return type;
-        } else {
+        }
+        if(type_id.equals(new Type("Int")) || type_id.equals(new Type("Bool")) || type_id.equals(new Type("String"))) {
+            type = new Type("Void");
+            return type;
+        }
+        else {
             type = new Error_t("Reading into variable of the wrong type. Correct type is: Int | String | Bool", env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ret.add(new Read3(new Var3(intoId)));
         return ret;
@@ -443,9 +443,9 @@ class PrintStmt extends Statement {
             return type;
         }
     }
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> code = exp.genIR3(classId);
+        ArrayList<Instruction> code = exp.genIR3(classId, temps);
         Var3 res = Instruction.getResultFromList(code);
         ret.addAll(code);
         ret.add(new Print3(res));
@@ -477,30 +477,35 @@ class AssignStmt extends Statement {
     public Type typecheck(LocalEnvironment env) {
         Type type_exp = value.typecheck(env);
         Type type_id = env.lookup_var(id);
-        if(type_id != null && type_exp.equals(type_id)) {
-            type = new Type("Void");
-            return type;
-        }
-        else if(type_id == null){
+        if(type_id.isError()){
             type = new Error_t("Unknown variable binding " + id, env.currMethod, env.currClass);
             type.printMsg();
             return type;
+        }
+        if(type_exp.isError()) {
+            type = new Error_t("r value does not type check in assignment to " + id, env.currMethod, env.currClass);
+            type.printMsg();
+            return type;
+        }
+        if(type_exp.equals(type_id)) {
+            type = new Type("Void");
+            return type;
         } else {
-            type = new Error_t("Assigning type " + type_exp + " to " + id + ": " + type_id, env.currMethod, env.currClass);
+            type = new Error_t("Assigning type " + type_exp + " to " + id + " of type " + type_id, env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
     }
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> code = value.genIR3(classId);
+        ArrayList<Instruction> code = value.genIR3(classId, temps);
         Var3 res = Instruction.getResultFromList(code);
         ret.addAll(code);
         ret.add(new Assign3(new Var3(id), res));
         return ret;
     }
 }
-
+//field assignment
 class AccessStmt extends Statement {
     public Atom obj;
     public String fieldName;
@@ -526,41 +531,47 @@ class AccessStmt extends Statement {
     }
 
     public Type typecheck(LocalEnvironment env) {
-        if(!obj.isId()) {
-            type = new Error_t("Accessing field of a non-object", env.currMethod, env.currClass);
+        Type obj_type = obj.typecheck(env);
+        if(obj_type.isError()) {
+            type = new Error_t("field assign: LHS of l value does not type check for field " + fieldName, env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        Type type_atom = env.lookup_var(((Id)obj).objectId);
-        if(type_atom == null) {
-            type = new Error_t("Unknown variable binding " + ((Id)obj).objectId, env.currMethod, env.currClass);
+        Type field_type = ClassDescriptor.lookup_var(obj_type.getId(), fieldName);
+        if(field_type.isError()) {
+            type = new Error_t("field assign: RHS of l value does not type check for field " + fieldName, env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        Type type_exp = exp.typecheck(env);
-        Type type_fName = ClassDescriptor.lookup_field_type(type_atom.getId(), fieldName);
-        if(type_fName == null) {
-            type = new Error_t("Variable " + ((Id)obj).objectId + " has no field " + fieldName, env.currMethod, env.currClass);
+        Type exp_type = exp.typecheck(env);
+        if(exp_type.isError()) {
+            type = new Error_t("field assign: r value does not type check for field " + fieldName, env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        if(!type_fName.equals(type_exp)) {
-            type = new Error_t("Error: type mismatch, assigning " + type_exp + " to " + type_fName, env.currMethod, env.currClass);
+        if(!exp_type.equals(field_type)) {
+            type = new Error_t("Error: type mismatch, assigning " + exp_type + " to " + field_type + " for field " + fieldName, env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        this.type = type_exp;
+        this.type = exp_type;
         return new Type("Void");
     }
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> code = exp.genIR3(classId);
-        Var3 res = Instruction.getResultFromList(code);
+        ArrayList<Instruction> code = obj.genIR3(classId, temps);
+        Var3 lValue = Instruction.getResultFromList(code);
+        Var3 rValue;
+        ret.addAll(code);
+
+        code = exp.genIR3(classId, temps);
+        rValue = Instruction.getResultFromList(code);
+        ret.addAll(code);
 
         Temp t = new Temp(type);
-        Decl3.addDecl(ret, t);
-        ret.add(new Assign3(t, new Access3(((Id)obj).objectId, fieldName)));
-        ret.add(new Assign3(t, res));
+        temps.add(new Decl3(t));
+        ret.add(new Assign3(t, new Access3(lValue.getId(), fieldName)));
+        ret.add(new Assign3(t, rValue));
         return ret;
     }
 }
@@ -588,110 +599,65 @@ class DispatchStmt extends Statement {
     }
 
     public Type typecheck(LocalEnvironment env) {
-        int res = 0;
-        Type exp_type;
-        String mName;
-        Tuple<HashMap<String, String>, String> methodSig;
-        HashMap<String, String> formalMap;
-        ArrayList<Expression> expList = exps.exps;
-
-        String object_name;
-        Type object_type;
-        Tuple<VarSig, MSig> class_info;
-        //obj is of class Id, expressions match method signature
-        if(obj.isId()) {
-            mName = ((Id)obj).objectId;
-            methodSig = env.lookup_mtd(mName);
-            if(methodSig != null) {
-                formalMap = methodSig.x;
-                res = exps.check_exps(formalMap, env);
-                if(res == 0) {
-                    type = new Type(methodSig.y);
-                    return type;
-                } else {
-                    this.reportResult(res, env, mName);
-                    return type;
-                }
-            }
-            type = new Error_t("Method signature not found" + mName, env.currMethod, env.currClass);
+        Type obj_type = obj.typecheck_func(env);
+        if(!obj_type.isFunction()) {
+            type = new Error_t("Calling a non-function type", env.currMethod, env.currClass);
             type.printMsg();
             return type;
         }
-        //obj is of class Access, obj.obj is of class Id, expressions match
-        // CD.lookup(env.lookup(obj.obj.objectId)).y.rec.get(obj.fieldName)
-        if(obj.isAccess() && ((Access)obj).obj.isId()) {
-            object_name = ((Access)obj).fieldName;
-            object_type = ((Id)((Access)obj).obj).typecheck(env);
-            if(object_type == null) {
-                type = new Error_t("Unknown variable binding " + object_name, env.currMethod, env.currClass);
-                type.printMsg();
-                return type;
-            }
-            class_info = ClassDescriptor.lookup(object_type.getId());
-            if(class_info == null) {
-                type = new Error_t("Unknown class " + object_type, env.currMethod, env.currClass);
-                type.printMsg();
-                return type;
-            }
-            mName = ((Id)
-                    ((Access)obj).obj).objectId;
-            methodSig = ClassDescriptor.lookup_method_sig(object_type.getId(), mName);
-            formalMap = methodSig.x;
-            res = exps.check_exps(formalMap, env);
-            if(res == 0) {
-                type = new Type(methodSig.y);
-                return type;
-            } else {
-                this.reportResult(res, env, mName);
-                return type;
-            }
-        }
-        type = new Error_t("Method call is ill-formed", env.currMethod, env.currClass);
-        type.printMsg();
-        return type;
-    }
 
-    private void reportResult(int res, LocalEnvironment env, String mName) {
-        if (res == 1) {
-            type = new Error_t("Args list has wrong cardinality when calling " + mName, env.currMethod, env.currClass);
+        Type exps_type = exps.typecheck(env);
+        if(exps_type.isError()) {
+            type = new Error_t("Some function parameters do not type check for function " + obj.getFuncId(), env.currMethod, env.currClass);
             type.printMsg();
-        } else if (res == 2) {
-            type = new Error_t("Some arg expression does not typecheck when calling " + mName, env.currMethod, env.currClass);
+            return type;
+        }
+
+        switch (obj_type.match(exps_type)) {
+        case 0:
+            type = new Type(((Function_t)obj_type).getReturnType());
+            return type;
+        case 1:
+            type = new Error_t("Function call has wrong argument cardinality for function " + obj.getFuncId(), env.currMethod, env.currClass);
             type.printMsg();
-        } else if (res == 3) {
-            type = new Error_t("Arg and formal type mismatch when calling" + mName, env.currMethod, env.currClass);
+            return type;
+        case 2:
+            type = new Error_t("Function call has wrong argument type", env.currMethod, env.currClass);
             type.printMsg();
+            return type;
+        default:
+            type = new Error_t("Match function should not reach here");
+            type.printMsg();
+            return type;
         }
     }
 
     @Override
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> params = new ArrayList<Instruction>();
         ArrayList<Instruction> code = new ArrayList<Instruction>();
         Var3 res;
+        VarList3 paramList = new VarList3();
 
-        //callClassId is for dynamic dispatch only
-        String callClassId;
-        String funcName;
+        Type callerClass = obj.getCallerClass();
+        String callerId = obj.getCallerId();
+        String funcName = obj.getFuncId();
 
-        for(Expression e: exps.exps) {
-            code = e.genIR3(classId);
+        code = obj.genIR3(classId, temps);
+        res = Instruction.getResultFromList(code);
+        ret.addAll(code);
+
+        for (Expression e : exps.exps) {
+            code = e.genIR3(classId, temps);
             ret.addAll(code);
             res = Instruction.getResultFromList(code);
-            params.add(new Param3(res));
+            paramList.add(res);
         }
-        ret.addAll(params);
-        if(obj.isId()) {
-            funcName = ClassDescriptor.lookup_flat_func_name(classId, ((Id)obj).objectId);
-            ret.add(new SCall3(new Var3(funcName), new Int3(params.size())));
-            return ret;
-        }
-        else {
-            callClassId = ((Id)((Access)obj).obj).objectType.getId();
-            funcName = ClassDescriptor.lookup_flat_func_name(callClassId, ((Access)obj).fieldName);
-            ret.add(new SCall3(new Var3(funcName), new Int3(params.size())));
-        }
+
+        paramList.add(0, new Var3(callerId));
+        funcName = ClassDescriptor.lookup_flat_func_name(callerClass.getId(), funcName);
+        ret.add(new SCall3(new Var3(funcName), paramList));
         return ret;
     }
 }
@@ -745,14 +711,14 @@ class ReturnStmt extends Statement {
         return type;
     }
 
-    public ArrayList<Instruction> genIR3(String classId) {
+    public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> code;
         Var3 res;
         Expression e;
         if(exp.isPresent()) {
             e = exp.get();
-            code = e.genIR3(classId);
+            code = e.genIR3(classId, temps);
             res = Instruction.getResultFromList(code);
             ret.addAll(code);
             ret.add(new VRet3(res));
