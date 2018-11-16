@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import ir3.Arg3;
 import ir3.Decl3;
 import ir3.Instruction;
 import ir3.Print3;
@@ -40,7 +41,7 @@ public class PrintStmt extends Statement {
     public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> code = exp.genIR3(classId, temps);
-        Var3 res = Instruction.getResultFromList(code);
+        Arg3 res = Instruction.getResultFromList(code);
         ret.addAll(code);
         ret.add(new Print3(res));
         return ret;

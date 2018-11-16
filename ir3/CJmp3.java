@@ -3,7 +3,7 @@ package ir3;
 public class CJmp3 extends Instruction {
     public Arg3 arg2;
 
-    public CJmp3(Var3 test, Int3 labelNum) {
+    public CJmp3(Arg3 test, Int3 labelNum) {
         super.op = Op3.IF;
         super.arg1 = test;
         this.arg2 = labelNum;

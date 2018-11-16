@@ -4,9 +4,16 @@ class Main {
         A a;
         Int value;
         a = new A();
+        a.value = a.value + 1;
+        a.value = 1+1;
+        a.value = a.value + a.value;
+        a.b.c.a = new A();
+        a.b.c.a.value = new A().b.value;
+        
+        new A().b.value = 10;
         value = a.b.c.a.value;
         value = a.getB().getC().getA().getValue(2,4,3);
-        value = a.getB().c.getD().a.getValue(1,2,3);
+        value = a.getB().c.getD().a.getValue(a.b.value,2,3);
         return;
     }
 }
@@ -23,10 +30,22 @@ class A {
         this.value = -(a*b-c);
         return value;
     }
+
+    Int testValue(Int value) {
+        value = value;
+        this.value = value;
+        return value;
+    }
+
+    Int testValue2() {
+        value = 1;
+        return value;
+    }
     
 }
 
 class B {
+    Int value;
     C c;
     
     C getC() {

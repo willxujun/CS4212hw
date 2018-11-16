@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import ir3.Arg3;
 import ir3.Decl3;
 import ir3.ECall3;
 import ir3.Instruction;
@@ -80,9 +81,8 @@ public class Dispatch extends Atom {
     @Override
     public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> params = new ArrayList<Instruction>();
         ArrayList<Instruction> code = new ArrayList<Instruction>();
-        Var3 res;
+        Arg3 res;
         VarList3 paramList = new VarList3();
 
         code = obj.genIR3(classId, temps);
@@ -97,7 +97,7 @@ public class Dispatch extends Atom {
             code = e.genIR3(classId, temps);
             res = Instruction.getResultFromList(code);
             ret.addAll(code);
-            paramList.add(res);
+            paramList.add((Var3)res);
         }
 
         Temp t = new Temp(type);

@@ -64,8 +64,10 @@ public class Expressions extends Node {
             }
             ids.add(exp_type);
         }
-        if(hasError)
+        if(hasError) {
+            exp_type = new Error_t("expression list contains type error", env.currMethod, env.currClass);
             return exp_type;
+        }
         type = new Tuple_t(ids);
         return type;
     }

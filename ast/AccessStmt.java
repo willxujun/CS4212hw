@@ -3,9 +3,11 @@ package ast;
 import java.util.ArrayList;
 
 import ir3.Access3;
+import ir3.Arg3;
 import ir3.Assign3;
 import ir3.Decl3;
 import ir3.Instruction;
+import ir3.New3;
 import ir3.Var3;
 
 //field assignment
@@ -64,19 +66,22 @@ public class AccessStmt extends Statement {
 
     public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
-        ArrayList<Instruction> code = obj.genIR3(classId, temps);
-        Var3 lValue = Instruction.getResultFromList(code);
-        Var3 rValue;
-        ret.addAll(code);
 
-        code = exp.genIR3(classId, temps);
-        rValue = Instruction.getResultFromList(code);
-        ret.addAll(code);
+        ArrayList<Instruction> codel = obj.genIR3(classId, temps);
+        Arg3 lValue = Instruction.getResultFromList(codel);
+        ret.addAll(codel);
 
-        Temp t = new Temp(type);
-        temps.add(new Decl3(t));
-        ret.add(new Assign3(t, new Access3(lValue.getId(), fieldName)));
-        ret.add(new Assign3(t, rValue));
+        Arg3 rValue;
+        ArrayList<Instruction> coder = exp.genIR3(classId, temps);
+        Instruction lastR = Instruction.getLastInstruction(coder);
+        rValue = Instruction.getResultFromList(coder);
+        if(lastR.arg1 instanceof New3) {
+            Instruction.removeLastInstruction(coder);
+            rValue = lastR.arg1;
+        }
+        ret.addAll(coder);
+
+        ret.add(new Assign3(new Access3(lValue.getId(), fieldName), rValue));
         return ret;
     }
 }

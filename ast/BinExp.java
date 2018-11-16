@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import ir3.Arg3;
 import ir3.Bexp3;
 import ir3.Decl3;
 import ir3.Instruction;
@@ -72,8 +73,8 @@ public class BinExp extends Expression {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> codeL = l.genIR3(classId, temps);
         ArrayList<Instruction> codeR = r.genIR3(classId, temps);
-        Var3 resL = Instruction.getResultFromList(codeL);
-        Var3 resR = Instruction.getResultFromList(codeR);
+        Arg3 resL = Instruction.getResultFromList(codeL);
+        Arg3 resR = Instruction.getResultFromList(codeR);
 
         Temp t = new Temp(type);
         temps.add(new Decl3(t));

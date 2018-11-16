@@ -3,6 +3,7 @@ package ast;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import ir3.Arg3;
 import ir3.Assign3;
 import ir3.Decl3;
 import ir3.Instruction;
@@ -69,7 +70,7 @@ public class ReturnStmt extends Statement {
     public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> code;
-        Var3 res;
+        Arg3 res;
         Expression e;
         Temp t;
         if(exp.isPresent()) {

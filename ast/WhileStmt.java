@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import ir3.Arg3;
 import ir3.CJmp3;
 import ir3.Decl3;
 import ir3.Instruction;
@@ -59,7 +60,7 @@ public class WhileStmt extends Statement {
             Label3 lTrue = new Label3();
             Label3 lFalse = new Label3();
 
-            Var3 condRes = Instruction.getResultFromList(condTest);
+            Arg3 condRes = Instruction.getResultFromList(condTest);
             CJmp3 cJmp = new CJmp3(condRes, new Int3(lTrue.getN()));
             Jmp3 ucJmp = new Jmp3(new Int3(lFalse.getN()));
             Jmp3 ucJmp_loop = new Jmp3(new Int3(lLoop.getN()));

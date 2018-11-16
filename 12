@@ -1,0 +1,19 @@
+// source: Yuanquan test1.jlite
+//To test nesting if and while
+class Main {
+    Void main(Int a, Int b) {
+        while (a >= 0) {
+            while (b>=0) {
+                if(a>=b) {
+                    if(b>=a + 3) {
+                        return;
+                    } else { return;}
+                } else {
+                    while(true) {
+			return;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+Assign3 r = a      mov r a
+Bexp3 r = a op b   op r a b
+Uexp3 r = op a     (!)eor a #0; (-)rsb r a #0
+CJmp3 if b goto L  teq b #1, beq L
+ECall3 r = f(a,b,c)
+SCall3 f(a,b,c)
+Jmp3                b
+Label3              some label
+print3              (id) mov r0 r, b printf(PLT)
+                    (string) LDR r0, =L
+                    (Bool)   realized as string "true" "false"
+                    (Int)    mov r0 #someint
+ret3                bx lr
+vret3 r             mov r0, r ; bx lr

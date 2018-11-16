@@ -12,6 +12,9 @@ all:
 	java -cp java-cup-11b-runtime.jar:. Parser 7 > 7.out
 	java -cp java-cup-11b-runtime.jar:. Parser 8 > 8.out
 	java -cp java-cup-11b-runtime.jar:. Parser 9 > 9.out
+	java -cp java-cup-11b-runtime.jar:. Parser 10 > 10.out
+	java -cp java-cup-11b-runtime.jar:. Parser 11 > 11.out
+	java -cp java-cup-11b-runtime.jar:. Parser 12 > 12.out
 compile:
 	jflex minijava.flex
 	java -jar java-cup-11b.jar -interface -parser Parser minijava.cup
@@ -27,6 +30,9 @@ run:
 	java -cp java-cup-11b-runtime.jar:. Parser 7 > 7.out
 	java -cp java-cup-11b-runtime.jar:. Parser 8 > 8.out
 	java -cp java-cup-11b-runtime.jar:. Parser 9 > 9.out
+	java -cp java-cup-11b-runtime.jar:. Parser 10 > 10.out
+	java -cp java-cup-11b-runtime.jar:. Parser 11 > 11.out
+	java -cp java-cup-11b-runtime.jar:. Parser 12 > 12.out
 
 clean:
 	rm Lexer.java Parser.java sym.java

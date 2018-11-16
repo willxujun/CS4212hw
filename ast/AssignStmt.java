@@ -2,9 +2,11 @@ package ast;
 
 import java.util.ArrayList;
 
+import ir3.Arg3;
 import ir3.Assign3;
 import ir3.Decl3;
 import ir3.Instruction;
+import ir3.New3;
 import ir3.Var3;
 
 public class AssignStmt extends Statement {
@@ -53,9 +55,19 @@ public class AssignStmt extends Statement {
     public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> code = value.genIR3(classId, temps);
-        Var3 res = Instruction.getResultFromList(code);
-        ret.addAll(code);
-        ret.add(new Assign3(new Var3(id), res));
-        return ret;
+
+        Instruction last = Instruction.getLastInstruction(code);
+
+        Arg3 res = Instruction.getResultFromList(code);
+        if(last.arg1 instanceof New3) {
+            Instruction.removeLastInstruction(code);
+            ret.addAll(code);
+            ret.add(new Assign3(new Var3(id), last.arg1));
+            return ret;
+        } else {
+            ret.addAll(code);
+            ret.add(new Assign3(new Var3(id), res));
+            return ret;
+        }
     }
 }

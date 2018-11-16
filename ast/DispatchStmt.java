@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+import ir3.Arg3;
 import ir3.Decl3;
 import ir3.Instruction;
 import ir3.SCall3;
@@ -70,7 +71,7 @@ public class DispatchStmt extends Statement {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> params = new ArrayList<Instruction>();
         ArrayList<Instruction> code = new ArrayList<Instruction>();
-        Var3 res;
+        Arg3 res;
         VarList3 paramList = new VarList3();
 
         Type callerClass = obj.getCallerClass();
@@ -83,9 +84,9 @@ public class DispatchStmt extends Statement {
 
         for (Expression e : exps.exps) {
             code = e.genIR3(classId, temps);
-            ret.addAll(code);
             res = Instruction.getResultFromList(code);
-            paramList.add(res);
+            ret.addAll(code);
+            paramList.add((Var3)res);
         }
 
         paramList.add(0, new Var3(callerId));

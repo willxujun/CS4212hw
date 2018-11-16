@@ -3,11 +3,11 @@ package ast;
 import java.util.ArrayList;
 
 import ir3.Access3;
+import ir3.Arg3;
 import ir3.Assign3;
 import ir3.Decl3;
 import ir3.Instruction;
 import ir3.Obj3;
-import ir3.Var3;
 
 public class Access extends Atom {
     public Atom obj;
@@ -113,7 +113,7 @@ public class Access extends Atom {
     public ArrayList<Instruction> genIR3(String classId, ArrayList<Decl3> temps) {
         ArrayList<Instruction> ret = new ArrayList<Instruction>();
         ArrayList<Instruction> code = obj.genIR3(classId, temps);
-        Var3 res = Instruction.getResultFromList(code);
+        Arg3 res = Instruction.getResultFromList(code);
         ret.addAll(code);
 
         Temp t;
