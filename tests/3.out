@@ -1,0 +1,72 @@
+===== CData3 ===== 
+class Box
+    Int x
+    Box b1
+    Int z
+    Int y
+class Main
+    Box b
+
+===== CMtd3 ===== 
+Void %Main_0 [Main this]
+[Box b, Int sum, Bool b1, Bool b2, Int i1, Int i2, Bool _t0, Bool _t1, Bool _t2, Bool _t3, Int _t4, Int _t5, Int _t6, Int _t7, Int _t8, Int _t9, Bool _t10, Bool _t11, Bool _t12, Box _t13, Int _t14, Int _t15, Int _t16, Box _t17, Int _t18, Box _t19, Int _t20, Box _t21, Int _t22, Box _t23, Int _t24]
+    _t0 = ! b1;
+    _t1 = b2 || b2;
+    _t2 = _t0 && _t1;
+    _t3 = ! _t2;
+    if _t3 goto 0;
+    goto 1;
+    L0:
+    _t4 = i1 + i2;
+    _t5 = _t4 - i2;
+    _t6 = _t5 / i1;
+    _t7 = _t6 * i2;
+    sum = _t7;
+    L1:
+    return;
+    L2:
+    _t8 = i1 + i2;
+    _t9 = - i1;
+    _t10 = _t8 <= _t9;
+    if _t10 goto 3;
+    goto 4;
+    L3:
+    _t11 = b1 && b2;
+    _t12 = _t11 && true;
+    b1 = _t12;
+    readln b2;
+    println i1;
+    goto 2;
+    L4:
+    _t13 = new Box();
+    b = _t13;
+    _t14 = b.x;
+    _t14 = 10;
+    _t15 = b.y;
+    _t15 = 20;
+    _t16 = b.z;
+    _t16 = 30;
+    _t17 = this.b;
+    _t18 = _t17.x;
+    _t18 = 10;
+    _t19 = this.b;
+    _t20 = _t19.y;
+    _t20 = 20;
+    _t21 = this.b;
+    _t22 = _t21.z;
+    _t22 = 30;
+    _t23 = this.b;
+    _t24 = %Box_0 [_t23, "Error", 1000];
+    sum = _t24;
+    println sum;
+
+Int %Box_0 [Box this, String s1, Int one]
+[Int sum, Int _t25, Int _t26, Int _t27]
+    _t25 = x + y;
+    _t26 = _t25 + z;
+    _t27 = _t26 + one;
+    sum = _t27;
+    println s1;
+    return sum;
+
+

@@ -1,0 +1,24 @@
+A static checker + intermediate code generator for JLite, built on top of the lexer + parser from assignment 1.
+The intermediate code generated is IR3.
+You can run it on a Unix system by the following commands.
+
+OPTIONS:
+make all: compile and run on the input files of 1-9. Output is written into *.out respectively. If input passes static checking and code gen, IR3 is printed. If input does not pass static checking, parse tree is printed with some error messages.
+make compile: compile the Lexer and Parser
+make run: run on the input files 1-9. Output is and written into *.out respectively.
+make clean: clean the project
+
+Description of directory:
+minijava.flex	        jflex source file
+minijava.cup	        CUP source file
+Program.java	        a java implementation of the parse tree.
+*.java                  other parse tree components
+1 - 9                   tests 1 thru 9
+IR3.java                an IR3 quadruple data structure
+makefile                makefile
+ClassDescriptor.java    a class descriptor implementation
+LocalEnvironment.java   a local environment implementation
+tests/	                test files 1-9 and their corresponding output
+
+Note:
+No method overloading.

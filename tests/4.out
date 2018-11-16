@@ -1,0 +1,42 @@
+===== CData3 ===== 
+class MainC
+class Functional
+    Int a
+
+===== CMtd3 ===== 
+Void %MainC_0 [MainC this]
+[Functional fo, Int i, Int j, Bool _t0, Functional _t1, Int _t2]
+    readln i;
+    _t0 = i > 0;
+    if _t0 goto 0;
+    goto 1;
+    L0:
+    _t1 = new Functional();
+    fo = _t1;
+    _t2 = %Functional_2 [fo, i];
+    j = _t2;
+    println j;
+    L1:
+    println "Error";
+    return;
+
+Int %Functional_2 [Functional this, Int b]
+[Int _t3]
+    _t3 = 3;
+    return _t3;
+
+Bool %Functional_1 [Functional this, Int input]
+[Int a, Int b, Int _t4, Int _t5, Bool _t6]
+    _t4 = input * 5;
+    a = _t4;
+    _t5 = input + 7;
+    b = _t5;
+    _t6 = a >= b;
+    return _t6;
+
+Bool %Functional_0 [Functional this]
+[Bool _t7]
+    _t7 = %Functional_1 [this, 7];
+    return _t7;
+
+

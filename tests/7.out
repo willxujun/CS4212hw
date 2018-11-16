@@ -1,0 +1,44 @@
+===== CData3 ===== 
+class P1
+
+===== CMtd3 ===== 
+Void %P1_0 [P1 this]
+[Int a, Int b, Int c, Int d, Int e, Int f, Int g, Int h, Int i, Int j, Int k, Int l, Bool _t0, Int _t1, Int _t2, Int _t3, Int _t4, Int _t5, Int _t6, Int _t7, Int _t8]
+    a = 5;
+    _t0 = a < 7;
+    if _t0 goto 0;
+    goto 1;
+    L0:
+    _t1 = c + d;
+    b = _t1;
+    _t2 = f * g;
+    e = _t2;
+    _t3 = i - 6;
+    h = _t3;
+    i = 8;
+    L1:
+    _t4 = c + d;
+    h = _t4;
+    _t5 = i - 6;
+    e = _t5;
+    _t6 = c + d;
+    j = _t6;
+    _t7 = f * g;
+    k = _t7;
+    _t8 = i - 6;
+    l = _t8;
+    println a;
+    println b;
+    println c;
+    println d;
+    println e;
+    println f;
+    println g;
+    println h;
+    println i;
+    println j;
+    println k;
+    println l;
+    println "Goodbye cruel world!";
+
+

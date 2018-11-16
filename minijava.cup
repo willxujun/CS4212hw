@@ -3,6 +3,8 @@
 import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.ScannerBuffer;
 import java.io.*;
+import ast.*;
+import ir3.*;
 
 parser code {:
   public Parser(Lexer lex, ComplexSymbolFactory sf) {
@@ -33,6 +35,8 @@ parser code {:
             System.out.println("Parse error, or failed distinct name check. See parse tree for detail.");
             System.out.println(t.prettyPrint());
       }
+
+
   }
 :};
 
@@ -110,13 +114,13 @@ myclass     ::= CLASS TYPEID:name LBRACES varsmethods:vms RBRACES
                             RESULT = new Err("Error: Duplicate class name " + name);
                             break;
                         case 2:
-                            RESULT = new Err("Error: Duplicate formal name in method");
+                            RESULT = new Err("Error: Duplicate formal name in method " + ClassDescriptor.errorMsg);
                             break;
                         case 3:
-                            RESULT = new Err("Error: Duplicate field name in class" + name);
+                            RESULT = new Err("Error: Duplicate variable name " + ClassDescriptor.errorMsg + " in class" + name);
                             break;
                         case 4:
-                            RESULT = new Err("Error: Method cannot overload");
+                            RESULT = new Err("Error: Method cannot overload in method " + ClassDescriptor.errorMsg + " of class " + name);
                             break;
                         default:
                             RESULT = new Err("Error: unknown");

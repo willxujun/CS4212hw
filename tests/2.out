@@ -1,0 +1,67 @@
+===== CData3 ===== 
+class A
+    B b
+    Int value
+class Main
+class D
+    A a
+class C
+    A a
+    D d
+class B
+    C c
+
+===== CMtd3 ===== 
+Void %Main_0 [Main this]
+[A a, Int value, A _t0, B _t1, C _t2, A _t3, Int _t4, B _t5, C _t6, A _t7, Int _t8, B _t9, C _t10, D _t11, A _t12, Int _t13]
+    _t0 = new A();
+    a = _t0;
+    _t1 = a.b;
+    _t2 = _t1.c;
+    _t3 = _t2.a;
+    _t4 = _t3.value;
+    value = _t4;
+    _t5 = %A_1 [a];
+    _t6 = %B_0 [_t5];
+    _t7 = %C_1 [_t6];
+    _t8 = %A_0 [_t7, 2, 4, 3];
+    value = _t8;
+    _t9 = %A_1 [a];
+    _t10 = _t9.c;
+    _t11 = %C_0 [_t10];
+    _t12 = _t11.a;
+    _t13 = %A_0 [_t12, 1, 2, 3];
+    value = _t13;
+    return;
+
+B %A_1 [A this]
+[]
+    return b;
+
+Int %A_0 [A this, Int a, Int b, Int c]
+[Int _t14, Int _t15, Int _t16, Int _t17]
+    _t14 = a * b;
+    _t15 = _t14 - c;
+    _t16 = - _t15;
+    _t17 = this.value;
+    _t17 = _t16;
+    return value;
+
+C %B_0 [B this]
+[]
+    return c;
+
+A %C_1 [C this]
+[]
+    return a;
+
+D %C_0 [C this]
+[]
+    return d;
+
+A %D_0 [D this]
+[A _t18]
+    _t18 = this.a;
+    return _t18;
+
+

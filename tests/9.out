@@ -1,0 +1,75 @@
+Parse error, or failed distinct name check. See parse tree for detail.
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+        VariableList
+          A a
+          Int value
+        StatementList
+          Assign a
+            New A
+          Assign value
+            Dispatch
+              Access getValue
+                (Id a)
+              ExpressionList
+                (Int 1)
+                (Int 2)
+                (Int 2)
+          Assign value
+            Dispatch
+              Access getValue
+                (Id a)
+              ExpressionList
+                (Int 3)
+          Assign value
+            Dispatch
+              Access getValue
+                (Id a)
+              ExpressionList
+                (Int 4)
+                (Bool true)
+          Return
+  Error: Method cannot overload in method getValue of class A
+  Class B
+    VariableList
+      C c
+    MethodList
+      C getC
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id c)
+  Class C
+    VariableList
+      A a
+      D d
+    MethodList
+      A getA
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id a)
+      D getD
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id d)
+  Class D
+    VariableList
+      A a
+    MethodList
+      A getA
+        FormalList
+        VariableList
+        StatementList
+          Return
+            Access a
+              This
+

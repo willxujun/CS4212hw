@@ -1,0 +1,268 @@
+Error: Assigning type B to a of type A
+In method main
+In class Main
+
+Error: Unknown variable binding notfoundvariable
+In method main
+In class Main
+
+Error: l expression does not have bool or int type in (Id a) Or
+In method main
+In class Main
+
+Error: l expression does not have bool or int type in (BinExp Or) And
+In method main
+In class Main
+
+Error: r value does not type check in assignment to value
+In method main
+In class Main
+
+Error: l expression does not have bool or int type in (Id a) Plus
+In method main
+In class Main
+
+Error: r value does not type check in assignment to value
+In method main
+In class Main
+
+From ClassDescriptor: Unknwon Class Int or unknown function randomfunc
+Error: Call to unknown function randomfunc
+In method main
+In class Main
+
+Error: Calling a non-function type Error_t
+In method main
+In class Main
+
+Error: r value does not type check in assignment to value
+In method main
+In class Main
+
+Error: Function call has wrong argument cardinality in call to getValue
+In method main
+In class Main
+
+Error: r value does not type check in assignment to value
+In method main
+In class Main
+
+From ClassDescriptor: Class B does not have variable notfoundvariable
+Error: Access cannot find field name notfoundvariable
+In method main
+In class Main
+
+Error: Dispatch object does not type check for call to getD
+In method main
+In class Main
+
+Error: Calling a non-function type Error_t
+In method main
+In class Main
+
+Error: Accessing object does not type check when accessing field a
+In method main
+In class Main
+
+Error: Dispatch object does not type check for call to getValue
+In method main
+In class Main
+
+Error: Calling a non-function type Error_t
+In method main
+In class Main
+
+Error: r value does not type check in assignment to value
+In method main
+In class Main
+
+Error: If statement has non-bool test type Main
+In method main
+In class Main
+
+Error: Returning type A, expected Void
+In method main
+In class Main
+
+Error: If statement has different branch types Void, Error_t
+In method main
+In class Main
+
+Error: While statement has non-bool test type A
+In method main
+In class Main
+
+Error: Returning type Int, expected Void
+In method main
+In class Main
+
+Program
+  Class Main
+    VariableList
+    MethodList
+      Void main
+        FormalList
+        VariableList
+          A a
+          Int value
+        StatementList
+          Assign a
+            New B
+          Assign a
+            New A
+          Assign notfoundvariable
+            (Int 10)
+          Assign value
+            BinExp And
+              (BinExp Or)
+                BinExp Or
+                  (Id a)
+                  (Bool true)
+              (Int 10)
+          Assign value
+            (BinExp Plus)
+              BinExp Plus
+                (Id a)
+                (Int 10)
+          Assign value
+            Dispatch
+              Access randomfunc
+                Access value
+                  Access a
+                    Access c
+                      Access b
+                        (Id a)
+              ExpressionList
+          Assign value
+            Dispatch
+              Access getValue
+                Dispatch
+                  Access getA
+                    Dispatch
+                      Access getC
+                        Dispatch
+                          Access getB
+                            (Id a)
+                          ExpressionList
+                      ExpressionList
+                  ExpressionList
+              ExpressionList
+                (Int 2)
+                (Int 4)
+                (Int 3)
+                (Int 1)
+                (Int 1)
+                (Int 1)
+                (Int 1)
+                (Int 1)
+          Assign value
+            Dispatch
+              Access getValue
+                Access a
+                  Dispatch
+                    Access getD
+                      Access notfoundvariable
+                        Dispatch
+                          Access getB
+                            (Id a)
+                          ExpressionList
+                    ExpressionList
+              ExpressionList
+                (Int 1)
+                (Int 2)
+                (Int 3)
+          If
+            This
+            StatementList
+              Return
+                (Id a)
+            StatementList
+              Print
+                (Id a)
+          If
+            (Bool true)
+            StatementList
+              Return
+            StatementList
+              Print
+                (Id value)
+              Return
+                (Id a)
+          While
+            (Id a)
+            StatementList
+              Assign value
+                BinExp Plus
+                  (Id value)
+                  (Int 1)
+          Return
+            (Int 111)
+  Class A
+    VariableList
+      Int value
+      B b
+    MethodList
+      B getB
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id b)
+      Int getValue
+        FormalList
+          Int a
+          Int b
+          Int c
+        VariableList
+        StatementList
+          Assign value
+            This
+            UExp Neg
+              (BinExp Minus)
+                BinExp Minus
+                  BinExp Mult
+                    (Id a)
+                    (Id b)
+                  (Id c)
+          Return
+            (Id value)
+  Class B
+    VariableList
+      C c
+    MethodList
+      C getC
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id c)
+  Class C
+    VariableList
+      A a
+      D d
+    MethodList
+      A getA
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id a)
+      D getD
+        FormalList
+        VariableList
+        StatementList
+          Return
+            (Id d)
+  Class D
+    VariableList
+      A a
+    MethodList
+      A getA
+        FormalList
+        VariableList
+        StatementList
+          Return
+            Access a
+              This
+
+Semantics error detected. Refer to msgs and parse tree.

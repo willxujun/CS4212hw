@@ -1,0 +1,49 @@
+//chained arithmetic, relational operations
+class Main {
+    Box b;
+
+    Void main() {
+        Box b;
+        Int sum;
+        Bool b1;
+        Bool b2;
+        Int i1;
+        Int i2;
+
+        if(!(!b1 && (b2 || b2))) {
+            sum = (i1 + i2 -i2) /i1 * i2;
+        } else {
+            return;
+        }
+        while(i1 + i2 <= -i1) {
+            b1 = b1 && b2 && true;
+            readln(b2);
+            println(i1);
+        }
+        b = new Box();
+
+        b.x = 10;
+        b.y = 20;
+        b.z = 30;
+        this.b.x = 10;
+        this.b.y = 20;
+        this.b.z = 30;
+
+        sum = this.b.func("Error", 1000);
+        println(sum);
+    }
+}
+
+class Box {
+    Int x;
+    Int y;
+    Int z;
+    Box b1;
+
+    Int func(String s1, Int one) {
+        Int sum;
+        sum = x + y + z + one;
+        println(s1);
+        return sum;
+    }
+}

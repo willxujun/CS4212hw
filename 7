@@ -1,15 +1,52 @@
-// soure Poellman test5.pl
-class Main {
+class FieldAccessMain {
 
-    Void main() {
-        variable = new Object();
-        this.variable2 = new Object();
-        this.variable3 = "Hallo";
-        this.variable4 = true;
-        this.variable5 = true || false;
-        this.variable6 = null;
-        this.variable7 = 1+2;
-        this.variable8 = 1 + 2 * 3 + 4;
+	Void main () {
+
+		Int a;
+
+		Int b;
+
+		Int temp;
+
+		
+
+		FieldAccess f;
+
+		f = new FieldAccess();
+
+		
+
+		b = f.func(5); // Function call. Result should be 11
+
+		
+
+		f.a = 7;  // Field write
+
+		
+
+		temp = (f.a + b) *2; // Field read. Result should be (11 + 7) *2 = 36
+
+		
+
+		println (temp); // Should output 36
+
+	}
+
+}
+
+
+
+class FieldAccess{ 
+
+	Int a;
+
+	Int func (Int x) {
+
+		return (6 + x);
+
     }
 
 }
+
+
+

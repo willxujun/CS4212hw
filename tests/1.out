@@ -1,0 +1,103 @@
+===== CData3 ===== 
+class Empty
+    Nihilism n
+class Dummy
+    Int b
+    Int a
+    Compute c
+class Compute
+    Int x
+    Bool chachedValue
+    Dummy dummy
+    Int y
+class Nihilism
+class Main
+class Dummy1
+    Dummy j1
+
+===== CMtd3 ===== 
+Void %Main_0 [Main this, Int i, Int k, Int b, Int c2]
+[Int t1, Int t2, Bool t3, String c, Compute help, Dummy dummy, Dummy _t0, Int _t1, Int _t2, Int _t3, Int _t4, Compute _t5, Int _t6, Int _t7, Bool _t8, Bool _t9, Int _t10, Bool _t11, Int _t12, Bool _t13, Int _t14, Bool _t15, Bool _t16, Bool _t17, Bool _t18, Bool _t19, Int _t20, Dummy _t21, Int _t22, Int _t23]
+    _t0 = help.dummy;
+    _t1 = t1 + t2;
+    _t2 = _t1 + k;
+    _t3 = _t2 + b;
+    _t4 = _t0.b;
+    _t4 = _t3;
+    _t5 = new Compute();
+    help = _t5;
+    _t6 = t1 * 3;
+    _t7 = - _t6;
+    _t8 = _t7 > t2;
+    _t9 = help.chachedValue;
+    _t9 = _t8;
+    L0:
+    _t10 = t1 + t2;
+    _t11 = _t10 > 5;
+    if _t11 goto 1;
+    goto 2;
+    L1:
+    b = 340;
+    t1 = t2;
+    goto 0;
+    L2:
+    _t12 = k + b;
+    _t13 = _t12 > t1;
+    _t14 = k - t2;
+    _t15 = _t14 < t1;
+    _t16 = _t15 && t3;
+    _t17 = _t13 || _t16;
+    _t18 = help.chachedValue;
+    _t19 = _t17 || _t18;
+    if _t19 goto 3;
+    goto 4;
+    L3:
+    _t20 = t1 + t2;
+    b = _t20;
+    _t21 = help.dummy;
+    _t22 = _t21.a;
+    _t22 = 1;
+    L4:
+    _t23 = 3 * 4;
+    b = _t23;
+    println t2;
+
+Int %Compute_0 [Compute this, Int a, Int b]
+[Compute help, Dummy _t24, Int _t25, Int _t26, Int _t27, Int _t28]
+    help = this;
+    _t24 = this.dummy;
+    _t25 = %Compute_0 [this, 1, 2];
+    _t26 = _t24.a;
+    _t26 = _t25;
+    _t27 = 1;
+    return _t27;
+    _t28 = 1;
+    return _t28;
+
+Int %Empty_0 [Empty this]
+[Int _t29, Bool _t30, Int _t31, Bool _t32, Int _t33, Int _t34, Int _t35]
+    _t29 = 2 * 3;
+    _t30 = 1 > _t29;
+    if _t30 goto 7;
+    goto 8;
+    L7:
+    _t31 = 3;
+    return _t31;
+    L8:
+    _t32 = 2 == 3;
+    if _t32 goto 5;
+    goto 6;
+    L5:
+    _t33 = 10000;
+    return _t33;
+    L6:
+    _t34 = 3;
+    return _t34;
+    _t35 = 1;
+    return _t35;
+
+Int %Dummy1_0 [Dummy1 this]
+[Int i, Bool j]
+    return i;
+
+
