@@ -33,6 +33,10 @@ public abstract class Instruction {
         return result;
     }
 
+    public Arg3 getArg1() { return arg1; }
+
+    public Arg3 getArg2() { return null; }
+
     public String toString() {
         return op + " " + arg1+ ";";
     }

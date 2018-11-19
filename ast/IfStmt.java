@@ -3,12 +3,15 @@ package ast;
 import java.util.ArrayList;
 
 import ir3.Arg3;
+import ir3.Bexp3;
+import ir3.Bop3;
 import ir3.CJmp3;
 import ir3.Decl3;
 import ir3.Instruction;
 import ir3.Int3;
 import ir3.Jmp3;
 import ir3.Label3;
+import ir3.RelExp3;
 import ir3.Var3;
 
 public class IfStmt extends Statement {
@@ -73,7 +76,20 @@ public class IfStmt extends Statement {
         //condTest[n]; cJmp condRes lTrue; ucJmp lFalse; lTrue; codeTrue; lFalse; codeFalse;
         Label3 lTrue = new Label3();
         Label3 lFalse = new Label3();
-        Arg3 condRes = Instruction.getResultFromList(condTest);
+
+        Arg3 condRes;
+        Instruction lastTest;
+        if(test instanceof BinExp) {
+            if(((BinExp) test).op.getType().equals("Rel")) {
+                lastTest = Instruction.getLastInstruction(condTest);
+                condRes = new Bop3(((BinExp) test).op.getOp3(), (Var3)lastTest.arg1, (Var3)((Bexp3)lastTest).arg2);
+                Instruction.removeLastInstruction(condTest);
+            } else {
+                condRes = Instruction.getResultFromList(condTest);
+            }
+        } else {
+            condRes = Instruction.getResultFromList(condTest);
+        }
         CJmp3 cJmp = new CJmp3(condRes, new Int3(lTrue.getN()));
         Jmp3 ucJmp = new Jmp3(new Int3(lFalse.getN()));
 

@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 import ir3.Arg3;
 import ir3.Assign3;
+import ir3.Bexp3;
 import ir3.Decl3;
+import ir3.ECall3;
 import ir3.Instruction;
 import ir3.New3;
+import ir3.Uexp3;
 import ir3.Var3;
+import ir3.VarList3;
 
 public class AssignStmt extends Statement {
     public String id;
@@ -64,7 +68,26 @@ public class AssignStmt extends Statement {
             ret.addAll(code);
             ret.add(new Assign3(new Var3(id), last.arg1));
             return ret;
-        } else {
+        }
+        else if (value instanceof BinExp) {
+            Instruction.removeLastInstruction(code);
+            ret.addAll(code);
+            ret.add(new Bexp3(new Var3(id), last.arg1, ((Bexp3)last).arg2, last.op));
+            return ret;
+        }
+        else if (value instanceof UExp) {
+            Instruction.removeLastInstruction(code);
+            ret.addAll(code);
+            ret.add(new Uexp3(new Var3(id), last.arg1, last.op));
+            return ret;
+        }
+        else if (value instanceof Dispatch) {
+            Instruction.removeLastInstruction(code);
+            ret.addAll(code);
+            ret.add(new ECall3(new Var3(id), (Var3)last.arg1, (VarList3)last.getArg2()));
+            return ret;
+        }
+        else {
             ret.addAll(code);
             ret.add(new Assign3(new Var3(id), res));
             return ret;

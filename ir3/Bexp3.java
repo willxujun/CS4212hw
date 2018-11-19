@@ -10,8 +10,11 @@ public class Bexp3 extends Instruction {
         super.result = result;
     }
 
+    public Arg3 getArg2() { return arg2; }
+
     @Override
     public String toString() {
         return result + " = " +  arg1 + " " + super.op + " " + arg2+ ";";
     }
+
 }

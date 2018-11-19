@@ -15,11 +15,6 @@ public class Assign3 extends Instruction {
     }
 
     @Override
-    public Arg3 getResult() {
-        return super.result;
-    }
-
-    @Override
     public String toString() {
         return result + " " + super.op + " " + arg1 + ";";
     }

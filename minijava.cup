@@ -5,6 +5,7 @@ import java_cup.runtime.ScannerBuffer;
 import java.io.*;
 import ast.*;
 import ir3.*;
+import codegen.*;
 
 parser code {:
   public Parser(Lexer lex, ComplexSymbolFactory sf) {
@@ -26,16 +27,19 @@ parser code {:
           type_check_result = e.isOK();
           if(type_check_result == true) {
             ir3 = new IR3(e);
-            System.out.println(ir3);
           } else {
             System.out.println(t.prettyPrint());
             System.out.println("Semantics error detected. Refer to msgs and parse tree.");
+            return;
           }
       } else {
             System.out.println("Parse error, or failed distinct name check. See parse tree for detail.");
             System.out.println(t.prettyPrint());
+            return;
       }
 
+      CodeGen generator = new CodeGen(ir3);
+      generator.showBlocks();
 
   }
 :};

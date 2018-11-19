@@ -10,4 +10,8 @@ public class Bool3 extends Const3 {
     public String toString() {
         return String.valueOf(val);
     }
+
+    public boolean getVal() {
+        return val;
+    }
 }

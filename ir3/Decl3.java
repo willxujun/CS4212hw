@@ -23,6 +23,10 @@ public class Decl3 extends Instruction {
         arg2 = new Var3(t.toString());
     }
 
+    public Var3 toVar3() {
+        return (Var3)arg2;
+    }
+
     public static void addDecl(ArrayList<Instruction> ls, Temp t) {
         ls.add(0, new Decl3(new Var3(t.getType()), new Var3(t.toString())));
     }

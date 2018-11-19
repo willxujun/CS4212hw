@@ -5,4 +5,10 @@ public class Print3 extends Instruction {
         super.op = Op3.PRINT;
         super.arg1 = arg1;
     }
+
+    @Override
+    public Arg3 getResult() {
+        return null;
+    }
+
 }

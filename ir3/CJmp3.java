@@ -10,6 +10,9 @@ public class CJmp3 extends Instruction {
     }
 
     @Override
+    public Arg3 getArg2() { return null; }
+
+    @Override
     public String toString() {
         return super.op + " "+ arg1 + " goto " + arg2+ ";";
     }

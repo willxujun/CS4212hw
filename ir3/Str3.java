@@ -10,4 +10,8 @@ public class Str3 extends Const3 {
     public String toString() {
         return "\"" + val + "\"";
     }
+
+    public String getVal() {
+        return val;
+    }
 }

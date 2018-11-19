@@ -11,8 +11,13 @@ public class ECall3 extends Instruction {
     }
 
     @Override
-    public Arg3 getResult() {
-        return result;
+    public Arg3 getArg2() {
+        return arg2;
+    }
+
+    @Override
+    public Arg3 getArg1() {
+        return null;
     }
 
     @Override

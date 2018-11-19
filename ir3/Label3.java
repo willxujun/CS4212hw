@@ -14,6 +14,15 @@ public class Label3 extends Instruction {
         return n;
     }
 
+    @Override
+    public Arg3 getResult() {
+        return null;
+    }
+    @Override
+    public Arg3 getArg1() {
+        return null;
+    }
+
     public String toString() {
         return super.op.toString() + arg1 + ":";
     }

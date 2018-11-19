@@ -11,6 +11,21 @@ public class SCall3 extends Instruction {
     }
 
     @Override
+    public Arg3 getArg1() {
+        return null;
+    }
+
+    @Override
+    public Arg3 getArg2() {
+        return arg2;
+    }
+
+    @Override
+    public Arg3 getResult() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return super.arg1 + "" + arg2 + ";";
     }

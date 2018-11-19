@@ -1,7 +1,7 @@
 all:
 	jflex minijava.flex
 	java -jar java-cup-11b.jar -interface -parser Parser minijava.cup
-	javac -cp java-cup-11b-runtime.jar:. *.java ast/*.java ir3/*.java
+	javac -cp java-cup-11b-runtime.jar:. *.java ast/*.java ir3/*.java codegen/*.java analysis/BasicBlocks.java
 		
 	java -cp java-cup-11b-runtime.jar:. Parser 1 > 1.out
 	java -cp java-cup-11b-runtime.jar:. Parser 2 > 2.out
@@ -18,7 +18,7 @@ all:
 compile:
 	jflex minijava.flex
 	java -jar java-cup-11b.jar -interface -parser Parser minijava.cup
-	javac -cp java-cup-11b-runtime.jar:. *.java ast/*.java ir3/*.java
+	javac -cp java-cup-11b-runtime.jar:. *.java ast/*.java ir3/*.java codegen/*.java analysis/BasicBlocks.java
 
 run:
 	java -cp java-cup-11b-runtime.jar:. Parser 1 > 1.out

@@ -9,11 +9,6 @@ public class Uexp3 extends Instruction {
     }
 
     @Override
-    public Arg3 getResult() {
-        return result;
-    }
-
-    @Override
     public String toString() {
         return result + " = " + super.op + " " + arg1+ ";";
     }

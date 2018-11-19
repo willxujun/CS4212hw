@@ -9,10 +9,10 @@ import ast.Node;
 
 
 public class ClassData extends Node {
-    public Hashtable<String, Hashtable<String,String>> rec;
+    public static Hashtable<String, Hashtable<String,String>> rec;
 
     public ClassData() {
-        this.rec = ClassDescriptor.extract();
+        rec = ClassDescriptor.extract();
     }
 
     public ArrayList<Node> getChildren() {
@@ -33,5 +33,9 @@ public class ClassData extends Node {
             ret += curr;
         }
         return ret;
+    }
+
+    public static String getType(String className, String variableName) {
+        return rec.get(className).get(variableName);
     }
 }

@@ -9,4 +9,13 @@ public class Ret3 extends Instruction {
     public String toString() {
         return super.op + ";";
     }
+
+    @Override
+    public Arg3 getResult() {
+        return null;
+    }
+    @Override
+    public Arg3 getArg1() {
+        return null;
+    }
 }

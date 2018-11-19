@@ -4,19 +4,30 @@ import java.util.*;
 import ast.*;
 
 public class IR3 extends Node {
-    ClassData cData;
-    ArrayList<MethodData> mData;
+    public ClassData cData;
+    public ArrayList<MethodData> mData;
+
+    public IR3() {}
 
     public IR3(Program prog) {
         cData = new ClassData();
         mData = prog.genIR3();
     }
 
-
-
     public ArrayList<Node> getChildren() {
         return null;
     }
+
+    public static boolean isLocal(String methodId, String variable) {
+
+    }
+
+    public static boolean isFormal(String methodId, String variable) {
+
+    }
+
+
+
 
     @java.lang.Override
     public java.lang.String toString() {

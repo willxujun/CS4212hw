@@ -20,4 +20,11 @@ public class VarList3 extends Arg3 {
     public String toString() {
         return varList.toString();
     }
+
+    @Override
+    public ArrayList<Arg3> read() {
+        ArrayList<Arg3> ls = new ArrayList<>();
+        ls.addAll(varList);
+        return ls;
+    }
 }
